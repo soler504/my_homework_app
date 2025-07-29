@@ -1,0 +1,23 @@
+name: my_homework_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^16.0.0
+  get: ^4.7.2
+  flutter_local_notifications: ^19.4.0
+  permission_handler: ^12.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
