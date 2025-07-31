@@ -12,8 +12,10 @@ dependencies:
     sdk: flutter
   go_router: ^16.0.0
   get: ^4.7.2
-  # flutter_local_notifications: ^19.4.0
-  # permission_handler: ^12.0.1
+  flutter_local_notifications: ^19.4.0
+  permission_handler: ^12.0.1
+  syncfusion_flutter_calendar: ^30.1.42
+
 
 dev_dependencies:
   flutter_test:
