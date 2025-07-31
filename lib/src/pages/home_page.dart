@@ -28,9 +28,16 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Text(
-                  'Bienvenido tacuazin!',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                Row(
+                  children: [
+                    Text(
+                      'Bienvenido tacuazin!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
                 Card(
                   shadowColor: Colors.black,
@@ -82,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'Agosto',
+                      'Mes Agosto',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
@@ -141,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Text(
-                      'Hoy',
+                      'Tareas del día',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -193,6 +200,15 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.cancel_outlined, size: 35, color: Colors.red),
                     ],
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Hay 10 tareas más',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ],
             ),
