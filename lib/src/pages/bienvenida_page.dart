@@ -25,7 +25,7 @@ class BienvenidaPage extends StatelessWidget {
           margin: EdgeInsets.all(20),
           height: 400,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white70,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
@@ -39,7 +39,7 @@ class BienvenidaPage extends StatelessWidget {
                   height: 100,
                 ),
                 Text(
-                  'Bienvenido a my Homework App',
+                  'Bienvenido a MyHomework App',
                   style: TextStyle(fontSize: 40, color: Colors.black,fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold, decoration: TextDecoration.none),
                   textAlign: TextAlign.center,
