@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 
 class Boton extends StatelessWidget {
-  const Boton({super.key, required this.onpressed, required this.texto, this.ancho = 300, this.alto = 50});
+  const Boton({super.key, required this.onpressed, required this.texto, this.ancho = 300, this.alto = 50, this.icon});
   
   final void Function() onpressed;
   final String texto;
   final double ancho;
   final double alto;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class Boton extends StatelessWidget {
         textStyle: TextStyle(fontSize: 20),
       ),
       onPressed: onpressed, 
+      
       child: Text(texto,
         style: TextStyle(
           fontSize: 20, 
