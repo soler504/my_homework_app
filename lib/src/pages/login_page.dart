@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/services/auth_service.dart';
 import 'package:my_homework_app/src/widgets/caja_texto.dart';
 import 'package:my_homework_app/src/widgets/custom_elevatedbutton.dart';
+import 'package:provider/provider.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -12,6 +14,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isLoading = false;
+  
+
   final contraController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -141,11 +146,28 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
                   ),
               const SizedBox(height: 20),
-              Boton(onpressed: (){
-                // logica para acceder con google
-                print('Ingresando con google');
-              }, texto: 'Google',),
-
+              Boton(onpressed:this._isLoading ? (){} : () 
+                        async {setState(() => _isLoading = true);
+                        try {
+                          await Provider.of<AuthService>(context, listen: false)
+                              .signInWithGoogle();
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Error: ${e.toString()}'),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        } finally {
+                          if (mounted) {
+                            setState(() => _isLoading = false);
+                          }
+                        }
+                      }, texto: this._isLoading ? 'Procesando ':'Google', icon: this._isLoading ? 
+                      CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ) : Icon(Icons.login, color: Colors.white)),
+              FilledButton(onPressed: () async {}, child: Text('Iniciar sesión con Google', style: TextStyle(color: Colors.white))),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {

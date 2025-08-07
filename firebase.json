@@ -1,0 +1,22 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "my-homeworks-app",
+                    "appId": "1:544423687769:android:e65a7c26d419bba9f32348",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "my-homeworks-app",
+                    "configurations": {
+                        "android": "1:544423687769:android:e65a7c26d419bba9f32348",
+                        "web": "1:544423687769:web:65beb5e338dc6e6bf32348"
+                    }
+                }
+            }
+        }
+    }
+}

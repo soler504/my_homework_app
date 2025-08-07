@@ -7,63 +7,81 @@ class BienvenidaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      body:Container(
+      width: double.infinity,
+      height: double.infinity,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/bg1.png'),
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Colors.white.withAlpha(150),
             BlendMode.modulate,
           ),
         ),
       ),
-      child: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(20),
-          height: 400,
-          decoration: BoxDecoration(
-            color: Colors.white70,
-            borderRadius: BorderRadius.circular(10),
+
+      child: Container(
+          
+          margin: const EdgeInsetsDirectional.symmetric(
+            horizontal: 20.0,
+            vertical: 20.0,
           ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/logo.png',
-                  width: 100,
-                  height: 100,
-                ),
-                Text(
-                  'Bienvenido a MyHomework App',
-                  style: TextStyle(fontSize: 40, color: Colors.black,fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold, decoration: TextDecoration.none),
-                  textAlign: TextAlign.center,
-                  
-                ),
-                SizedBox(height: 20),
-                Boton(
-                  onpressed: () {
-                    context.push("/login");
-                  }, 
-                  texto: "Iniciar Sesión",),
-                SizedBox(height: 10),
-                Boton(
-                  onpressed: () {
-                    context.push("/registro");
-                  },
-                  texto: 'Registrarse',
-                  
-                ),
-              ],
+          padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: 40.0,
+            vertical: 40.0,
+          ),
+          decoration: BoxDecoration(
+            
+            color: Colors.white70,
+            borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: Offset(0, 4), // changes position of shadow
+              ),
+            ],
+            border: Border.all(
+              color: Colors.black45,
+              width: 1.0,
             ),
           ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 100,
+            ),
+            Text(
+              'Bienvenido a MyHomework App',
+              style: TextStyle(fontSize: 40, color: Colors.black,fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.bold, decoration: TextDecoration.none),
+              textAlign: TextAlign.center,
+              
+            ),
+            SizedBox(height: 20),
+            Boton(
+              onpressed: () {
+                context.push("/login");
+              }, 
+              texto: "Iniciar Sesión",),
+            SizedBox(height: 10),
+            Boton(
+              onpressed: () {
+                context.push("/registro");
+              },
+              texto: 'Registrarse',
+              
+            ),
+          ],
         ),
       )
+    )
     );
   }
 }
