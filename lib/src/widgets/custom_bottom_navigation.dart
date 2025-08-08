@@ -9,35 +9,34 @@ class CustomBottomNavigation extends StatefulWidget {
 }
 
 class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
+  int selectedIndex = 0; 
+
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
     return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: ''),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_month_outlined),
-          label: '',
-        ),
-      ],
       currentIndex: selectedIndex,
       onTap: (value) {
-        setState(() {
-          selectedIndex = value;
-          if (selectedIndex == 0) {
+        setState(() => selectedIndex = value);
+        switch (value) {
+          case 0:
             context.go('/home');
-            return;
-          }
-
-          if (selectedIndex == 2) {
+            break;
+          case 1:
+            context.goNamed('agregar-asignatura');
+            break;
+          case 2:
             context.go('/calendar');
-            return;
-          }
-
-          context.go('/home');
-        });
+            break;
+        }
       },
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: 'Add'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_month_outlined),
+          label: 'Calendar',
+        ),
+      ],
     );
   }
 }
