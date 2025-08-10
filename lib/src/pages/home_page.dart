@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                       iconData: Icons.flag_circle,
                       iconColor: Colors.orange,
                       texto1: '25',
-                      texto2: 'Fuera de fecha',
+                      texto2: 'Por vencer',
                     ),
                   ],
                 ),
