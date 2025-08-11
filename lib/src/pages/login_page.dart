@@ -173,14 +173,31 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   try{
                     final usuario = await _auth.singInConEmail(emailController.text, contraController.text);
-                    
+                    if (usuario==null){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text(
+                            'Error al iniciar sesión, usuario o contraseña incorrectos',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        snackBarAnimationStyle: AnimationStyle(
+                          curve: Curves.easeInOut,
+                          duration: Duration(seconds: 2),
+                          reverseDuration: Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Sesión iniciada, bienvenido ${usuario?.displayName}!')),
                       );
                       // Navegar a la pantalla principal después de iniciar sesión exitosamente 
                       print('usuario: ${usuario?.displayName}');
-                      context.go('/home', extra: {'user': usuario});
+                      context.go('/home_layout', extra: {'user': usuario});
                     }
                   }
                   catch(e){
@@ -226,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                       final user = userCredential.user;
                       print('user: ${user?.displayName}');
 
-                      context.go('/home', extra: {'user': user});
+                      context.go('/home_layout', extra: {'user': user, 'page': 'home'});
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(

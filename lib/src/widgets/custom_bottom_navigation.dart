@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
-  const CustomBottomNavigation({super.key, required this.user});
+  const CustomBottomNavigation({super.key});
 
-  final user;
   @override
   State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
 }
@@ -12,6 +11,10 @@ class CustomBottomNavigation extends StatefulWidget {
 class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   @override
   Widget build(BuildContext context) {
+    final argumentos =
+        GoRouter.of(context).routerDelegate.currentConfiguration.extra
+            as Map<String, dynamic>?;
+    final user = argumentos?['user'];
     int selectedIndex = 0;
     return BottomNavigationBar(
       items: [
@@ -27,16 +30,24 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         setState(() {
           selectedIndex = value;
           if (selectedIndex == 0) {
-            context.go('/home');
+            context.go('/home_layout', 
+            extra: {'user': user, 'page': 'home'});
             return;
           }
-
+          if (selectedIndex == 1) {
+            // context.go('/home_layout', extra: {'page': 'perfil'});
+            //aqui la logica para agregar una tarea
+            return;
+          }
           if (selectedIndex == 2) {
-            context.go('/calendar', extra: {'user': null});
+            context.go(
+              '/home_layout',
+              extra: {'user': user, 'page': 'calendar'},
+            );
             return;
           }
 
-          context.go('/home');
+          
         });
       },
     );

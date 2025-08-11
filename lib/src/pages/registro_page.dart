@@ -250,7 +250,7 @@ class _RegistroPageState extends State<RegistroPage> {
       );
       // Navegar a la pantalla principal después de registro exitoso
       if (context.mounted) {
-        context.go('/home', extra: {'user': user});
+        context.go('/home_layout', extra: {'user': user, 'page': 'home'});
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;

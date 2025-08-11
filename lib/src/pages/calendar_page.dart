@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/model/meeting.dart';
-import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
-import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
-import 'package:my_homework_app/src/widgets/side_menu.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -19,18 +16,11 @@ class _CalendarPageState extends State<CalendarPage> {
     final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
     final user = argumentos?['user'];
     print('user: $user');
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: CustomBottomNavigation(user: user,),
-        appBar: CustomAppBar(userURL: user?.photoURL),
-        drawer: SideMenu(),
-        body: SfCalendar(
-          view: CalendarView.month,
-          firstDayOfWeek: 1,
-          dataSource: MeetingDataSource(_getDataSource()),
-        ),
-      ),
-    );
+    return SfCalendar(
+        view: CalendarView.month,
+        firstDayOfWeek: 1,
+        dataSource: MeetingDataSource(_getDataSource()),
+      );
   }
 }
 
