@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Boton extends StatelessWidget {
   const Boton({super.key, required this.onpressed, required this.texto, this.ancho = 300, this.alto = 50, this.icon});
   
-  final void Function() onpressed;
+  final onpressed;
   final String texto;
   final double ancho;
   final double alto;

@@ -7,6 +7,19 @@ class AuthService {
 
   Stream<User?> get user => _auth.authStateChanges();
 
+  Future<User?> signUpWithEmail(String nombre, String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await result.user!.updateDisplayName(nombre.trim());
+      return result.user;
+    } catch (e) {
+      print('Error al registrarse: $e');
+      return null;
+    }
+  }
   Future<User?> singInConEmail(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
