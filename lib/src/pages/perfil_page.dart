@@ -10,8 +10,8 @@ class PerfilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: CustomBottomNavigation(),
-        appBar: CustomAppBar(),
+        bottomNavigationBar: CustomBottomNavigation(user: null,),
+        appBar: CustomAppBar(userURL: '',),
         drawer: SideMenu(),
         body: Center(
           child: Column(
