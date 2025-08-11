@@ -22,14 +22,14 @@ class _HomePageState extends State<HomePage> {
     final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
     final user = argumentos?['user'];
     
-    print('user: ${user.displayName}');
+    print('user: ${user!=null ? user.displayName : 'No hay usuario'}');
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         bottomNavigationBar: CustomBottomNavigation(user: argumentos?['user']),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
-          child: CustomAppBar(userURL: user.photoURL),
+          child: CustomAppBar(userURL: user?.photoURL ?? ''),
           ),
         drawer: SideMenu(),
         body: SingleChildScrollView(
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Text(
-                      'Bienvenido tacuazin!',
+                      'Bienvenido ${user.displayName??user.email}!',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,

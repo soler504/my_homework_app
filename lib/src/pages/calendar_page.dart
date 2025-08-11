@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/model/meeting.dart';
 import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
 import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
@@ -15,7 +16,7 @@ class _CalendarPageState extends State<CalendarPage> {
   
   @override
   Widget build(BuildContext context) {
-    final argumentos = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
     final user = argumentos?['user'];
     print('user: $user');
     return SafeArea(

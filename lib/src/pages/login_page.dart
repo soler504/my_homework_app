@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               Boton(
-                onpressed: () {
+                onpressed: () async {
                   // Handle login logic
 
                   if (contraController.text.isEmpty ||
@@ -171,6 +171,35 @@ class _LoginPageState extends State<LoginPage> {
                     );
                     return;
                   }
+                  try{
+                    final usuario = await _auth.singInConEmail(emailController.text, contraController.text);
+                    
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Sesión iniciada, bienvenido ${usuario?.displayName}!')),
+                      );
+                      // Navegar a la pantalla principal después de iniciar sesión exitosamente 
+                      print('usuario: ${usuario?.displayName}');
+                      context.go('/home', extra: {'user': usuario});
+                    }
+                  }
+                  catch(e){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(
+                          'Error al iniciar sesión: $e',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      snackBarAnimationStyle: AnimationStyle(
+                        curve: Curves.easeInOut,
+                        duration: Duration(seconds: 2),
+                        reverseDuration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
+
                 },
                 texto: "Iniciar Sesión",
               ),

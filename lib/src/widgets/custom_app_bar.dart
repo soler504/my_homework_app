@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.userURL});
   final String userURL;
-  bool get existeURL => userURL != null;
+  bool get existeURL => userURL != '';
   @override
   Widget build(BuildContext context) {
 
