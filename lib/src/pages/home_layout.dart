@@ -18,7 +18,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
     final user = argumentos?['user'];
-    final page = argumentos?['page'] ?? 'home';
+    
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
