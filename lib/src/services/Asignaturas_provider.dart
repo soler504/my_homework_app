@@ -1,4 +1,5 @@
-import 'package:my_homework_app/src/model/asignatura_model.dart';
+
+import '../model/asignatura_model.dart' show Asignatura;
 
 class AsignaturasProvider {
 
