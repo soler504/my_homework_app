@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/pages/popups.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   const CustomBottomNavigation({super.key});
@@ -37,7 +38,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
           if (selectedIndex == 1) {
             // context.go('/home_layout', extra: {'page': 'perfil'});
             //aqui la logica para agregar una tarea
-            context.push('/Popup');
+            mostrarPopup.mostrar(context);
             return;
           }
           if (selectedIndex == 2) {
