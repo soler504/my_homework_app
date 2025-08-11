@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:my_homework_app/src/services/auth_service.dart';
 import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
 import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
@@ -14,17 +15,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
   @override
   Widget build(BuildContext context) {
     
+    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
+    final user = argumentos?['user'];
+    
+    print('user: ${user.displayName}');
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        bottomNavigationBar: CustomBottomNavigation(),
+        bottomNavigationBar: CustomBottomNavigation(user: argumentos?['user']),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
-          child: CustomAppBar(),
-        ),
+          child: CustomAppBar(userURL: user.photoURL),
+          ),
         drawer: SideMenu(),
         body: SingleChildScrollView(
           child: Padding(

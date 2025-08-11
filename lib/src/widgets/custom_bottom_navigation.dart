@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
-  const CustomBottomNavigation({super.key});
+  const CustomBottomNavigation({super.key, required this.user});
 
+  final user;
   @override
   State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
 }
@@ -31,7 +32,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
           }
 
           if (selectedIndex == 2) {
-            context.go('/calendar');
+            context.go('/calendar', extra: {'user': null});
             return;
           }
 

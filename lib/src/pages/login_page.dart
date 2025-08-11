@@ -190,10 +190,14 @@ class _LoginPageState extends State<LoginPage> {
                     // logica para acceder con google
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Sesión iniciada con Google')),
+                        SnackBar(content: Text('Sesión iniciada con Google, bienvenido ${userCredential.user?.displayName}!')),
                       );
+                      // Navegar a la pantalla principal después de iniciar sesión exitosamente 
+                      print('userCredential: ${userCredential.user}');
+                      final user = userCredential.user;
+                      print('user: ${user?.displayName}');
 
-                      context.go('/home', extra: {'user': userCredential.user});
+                      context.go('/home', extra: {'user': user});
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(

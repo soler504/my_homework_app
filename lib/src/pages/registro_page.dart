@@ -243,10 +243,11 @@ class _RegistroPageState extends State<RegistroPage> {
         correo.text.trim(),
         contrasena.text.trim(),
       );
-      
-      // Opcional: Enviar correo de verificación
-      // await userCredential.user!.sendEmailVerification();
 
+      SnackBar(
+        content: Text('Registro exitoso. Bienvenido ${user!.displayName}!'),
+        backgroundColor: Colors.green,
+      );
       // Navegar a la pantalla principal después de registro exitoso
       if (context.mounted) {
         context.go('/home', extra: {'user': user});
@@ -274,6 +275,10 @@ class _RegistroPageState extends State<RegistroPage> {
       setState(() {
         _errorMessage = 'Error inesperado: $e';
         _isLoading = false;
+        SnackBar(
+          content: Text(_errorMessage!),
+          backgroundColor: Colors.red,
+        );
       });
     }
   }

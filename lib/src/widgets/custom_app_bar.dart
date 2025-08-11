@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
-
+  const CustomAppBar({super.key, required this.userURL});
+  final String userURL;
+  bool get existeURL => userURL != null;
   @override
   Widget build(BuildContext context) {
+
     return AppBar(
       title: Text('My Homework'),
       centerTitle: true,
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(child: Icon(Icons.person)),
+          child: CircleAvatar(child: existeURL ? Image.network(userURL) : Icon(Icons.person)),
         ),
       ],
     );

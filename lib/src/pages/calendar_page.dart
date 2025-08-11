@@ -6,19 +6,22 @@ import 'package:my_homework_app/src/widgets/side_menu.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
-
+  
   @override
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  
   @override
   Widget build(BuildContext context) {
+    final argumentos = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final user = argumentos?['user'];
+    print('user: $user');
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: CustomBottomNavigation(),
-        appBar: CustomAppBar(),
+        bottomNavigationBar: CustomBottomNavigation(user: user,),
+        appBar: CustomAppBar(userURL: user?.photoURL),
         drawer: SideMenu(),
         body: SfCalendar(
           view: CalendarView.month,
