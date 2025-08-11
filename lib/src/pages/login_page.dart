@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:my_homework_app/src/services/auth_service.dart';
 
 import 'package:my_homework_app/src/widgets/caja_texto.dart';
@@ -16,11 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // bool _isLoading = false;
   final _auth = AuthService();
-  final GoogleSignIn signIn = GoogleSignIn.instance;
-  final String clientId =
-      '544423687769-32r1tds8c2lee25jrnurt47emtuh8t89.apps.googleusercontent.com';
-  final String serverClientId =
-      '544423687769-0cfnsv0j0ts8i3vf9da6h0s3853bbiet.apps.googleusercontent.com';
+
   final contraController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -193,10 +189,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Sesión iniciada, bienvenido ${usuario?.displayName}!')),
+                        SnackBar(content: Text('Sesión iniciada, bienvenido ${usuario.displayName}!')),
                       );
                       // Navegar a la pantalla principal después de iniciar sesión exitosamente 
-                      print('usuario: ${usuario?.displayName}');
+                      print('usuario: ${usuario.displayName}');
                       context.go('/home_layout', extra: {'user': usuario});
                     }
                   }

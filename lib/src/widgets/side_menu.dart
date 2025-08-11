@@ -9,6 +9,8 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
+    final user = argumentos?['user'];
     return Drawer(
       child: ListView(
         children: [
@@ -36,7 +38,7 @@ class SideMenu extends StatelessWidget {
           ),
            ListTile(
             onTap: () {
-              context.push('/perfil');
+              context.push('/home_layout', extra: {'page': 'perfil', 'user': user});
             },
             title: Text('Perfil'),
             leading: Icon(Icons.person),

@@ -20,28 +20,33 @@ final appRouter = GoRouter(
     GoRoute(path: '/', builder: (context, state) => BienvenidaPage()),
     GoRoute(path: '/login', builder: (context, state) => LoginPage()),
 
-    GoRoute(path: '/Popup', 
-    builder: (context, state) => mostrarPopup(context) as Widget),
-        GoRoute(
-                name: 'ingresar materia',
-                path: '/Popup/nueva-asignatura',
-                builder: (context, state) {
-                  return CrearAsignatura();
-                },
-              ),
-        GoRoute(
-                name: 'ingresar materia',
-                path: '/Popup/nueva-tarea',
-                builder: (context, state) {
-                  return CrearTarea(asignaturas: state.extra as List<String>);
-                },
-              ),
-                    
+    GoRoute(
+      path: '/Popup',
+      builder: (context, state) => mostrarPopup(context) as Widget,
+    ),
+    GoRoute(
+      name: 'ingresar_materia',
+      path: '/Popup/nueva-asignatura',
+      builder: (context, state) {
+        return CrearAsignatura();
+      },
+    ),
+    GoRoute(
+      name: 'ingresar_tarea',
+      path: '/Popup/nueva-tarea',
+      builder: (context, state) {
+        return CrearTarea(asignaturas: state.extra as List<String>);
+      },
+    ),
+
     GoRoute(path: '/registro', builder: (context, state) => RegistroPage()),
     //paginas principales
     GoRoute(path: '/home', builder: (context, state) => HomePage()),
     GoRoute(path: '/home_layout', builder: (context, state) => Layout()),
-    GoRoute(path: '/notificacion', builder: (context, state) => NotificacionPage()),
+    GoRoute(
+      path: '/notificacion',
+      builder: (context, state) => NotificacionPage(),
+    ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     GoRoute(path: '/perfil', builder: (context, state) => PerfilPage()),
   ],
