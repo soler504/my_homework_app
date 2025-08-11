@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_homework_app/src/services/auth_service.dart';
+// import 'package:my_homework_app/src/services/auth_service.dart';
 import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
 import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
 import 'package:my_homework_app/src/widgets/card_dashboard.dart';
 import 'package:my_homework_app/src/widgets/side_menu.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthService>(context).user;
     
     return SafeArea(
       child: Scaffold(
