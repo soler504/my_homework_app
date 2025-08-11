@@ -13,7 +13,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(child: existeURL ? Image.network(userURL) : Icon(Icons.person)),
+          child: CircleAvatar(
+            backgroundImage: existeURL ? NetworkImage(userURL) : null,
+            child: existeURL ? null : Icon(Icons.person)),
         ),
       ],
     );
