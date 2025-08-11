@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_homework_app/src/services/notification_service.dart';
+import 'package:my_homework_app/src/widgets/custom_elevatedbutton.dart';
 
 class NotificacionPage extends StatefulWidget {
   const NotificacionPage({super.key});
@@ -20,7 +22,10 @@ class _NotificacionPageState extends State<NotificacionPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Center(child: Text('Notificaciones'))),
+        appBar: AppBar(
+          title: Center(child: Text('Notificaciones')),
+          automaticallyImplyLeading: true,
+        ),
         body: Column(
           children: [
             ...opciones.map(
@@ -35,6 +40,16 @@ class _NotificacionPageState extends State<NotificacionPage> {
                   },
                 ),
               ),
+            ),
+            Boton(
+              texto: 'Test',
+              onpressed: () async {
+                bool isGranted = await checkPermission(context);
+
+                if (isGranted) {
+                  await showNotification('titulo', 'descripcion');
+                }
+              },
             ),
           ],
         ),

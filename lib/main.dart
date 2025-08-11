@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:my_homework_app/src/config/router/app_router.dart';
 import 'package:my_homework_app/src/config/theme/app_theme.dart';
 import 'package:my_homework_app/src/controller/theme_controller.dart';
-// import 'package:my_homework_app/src/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:provider/provider.dart';
+import 'package:my_homework_app/src/services/notification_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await initNotification();
 
   runApp(const MainApp());
 }
