@@ -56,7 +56,7 @@ Future<void> showNotification(String titulo, String mensaje) async {
   } catch (e) {
     SnackBar(
       backgroundColor: Colors.red,
-      content: Text('Ocurrión un error', style: TextStyle(color: Colors.white)),
+      content: Text('Ocurrió un error', style: TextStyle(color: Colors.white)),
     );
   }
 }

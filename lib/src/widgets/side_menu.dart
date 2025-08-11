@@ -12,13 +12,34 @@ class SideMenu extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(child: Text('My Homework')),
+          DrawerHeader(
+            child: Column(
+              children: [
+                Center(
+                  child: Text(
+                    'My Homework',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text('Proyecto universitario de UNAH-VS'),
+                Text('Versión 1.0.0'),
+              ],
+            ),
+          ),
           ListTile(
             onTap: () {
               context.push('/notificacion');
             },
             title: Text('Notificaciones'),
             leading: Icon(Icons.notifications),
+          ),
+           ListTile(
+            onTap: () {
+              context.push('/perfil');
+            },
+            title: Text('Perfil'),
+            leading: Icon(Icons.person),
           ),
           ListTile(
             title: Text('Claro/Oscuro'),
