@@ -15,7 +15,7 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(child: Text('My Homework')),
           ListTile(
             onTap: () {
-              context.go('/notificacion');
+              context.push('/notificacion');
             },
             title: Text('Notificaciones'),
             leading: Icon(Icons.notifications),
