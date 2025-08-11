@@ -26,16 +26,16 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       name: 'ingresar_materia',
-      path: '/Popup/nueva-asignatura',
+      path: '/nueva-asignatura',
       builder: (context, state) {
         return CrearAsignatura();
       },
     ),
     GoRoute(
       name: 'ingresar_tarea',
-      path: '/Popup/nueva-tarea',
+      path: '/nueva-tarea',
       builder: (context, state) {
-        return CrearTarea(asignaturas: state.extra as List<String>);
+        return CrearTarea();
       },
     ),
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
 import 'package:my_homework_app/src/pages/home_page.dart';
+import 'package:my_homework_app/src/pages/new_tarea_page.dart';
 import 'package:my_homework_app/src/pages/perfil_page.dart';
 import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
 import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
@@ -48,9 +50,13 @@ class _LayoutState extends State<Layout> {
       return CalendarPage();
     } else if (page == 'perfil') {
       return PerfilPage();
-    }    
+    } else if (page == 'ingresar_tarea') {
+      return CrearTarea(); 
+    } else if (page == 'ingresar_materia') {
+      return CrearAsignatura(); 
+    }
     else{
-      return HomePage(); // Default to HomePage if no page is specified
+      return HomePage(); 
     }
   }
 }

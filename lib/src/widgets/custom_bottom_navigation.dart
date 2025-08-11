@@ -16,6 +16,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         GoRouter.of(context).routerDelegate.currentConfiguration.extra
             as Map<String, dynamic>?;
     final user = argumentos?['user'];
+    print('desde el bottom navigation: ${user?.email}');
     int selectedIndex = 0;
     return BottomNavigationBar(
       items: [

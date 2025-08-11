@@ -5,6 +5,7 @@ class Tarea{
   String id;
   String titulo;
   String descripcion;
+  DateTime fechaInicio;
   DateTime fechaLimite;
   Asignatura asignatura;
   bool completada;
@@ -15,6 +16,7 @@ class Tarea{
     required this.titulo,
     required this.asignatura,
     required this.descripcion,
+    required this.fechaInicio,
     required this.fechaLimite,
     this.completada = false,
   });
@@ -28,6 +30,8 @@ class Tarea{
       'id': id,
       'titulo': titulo,
       'descripcion': descripcion,
+      'asignaturaId': asignatura.id,
+      'fechaInicio': fechaInicio.toIso8601String(),
       'fechaLimite': fechaLimite.toIso8601String(),
       'completada': completada ? 1 : 0, // Convertir bool a int
     };

@@ -14,6 +14,11 @@ class TareasProvider {
     return tareas;
   }
 
+  void actualizarTarea(int index, Tarea tareaActualizada) {
+    if (index >= 0 && index < tareas.length) {
+      tareas[index] = tareaActualizada;
+    }
+  }
   // Método para marcar una tarea como completada
   void completarTarea(int index) {
     if (index >= 0 && index < tareas.length) {
