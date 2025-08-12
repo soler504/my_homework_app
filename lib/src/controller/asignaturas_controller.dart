@@ -8,7 +8,6 @@ class AsignaturasController extends GetxController {
   @override
   void onInit() {
     print('AsignaturaController inicializado');
-    Get.put(AsignaturasController());
     super.onInit();
   }
 

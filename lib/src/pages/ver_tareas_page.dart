@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
 
 // Un widget para mostrar los detalles de una tarea específica.
@@ -11,10 +13,9 @@ class DetalleTareaVista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final argumentos =
-        GoRouter.of(context).routerDelegate.currentConfiguration.extra
-            as Map<String, dynamic>?;
-    final user = argumentos?['ver tareas '];
+    // Se obtiene la tarea desde los argumentos pasados a la ruta.
+    final user = FirebaseAuth.instance.currentUser;
+        
     print('desde el popup: ${user?.email}');
     // Para formatear las fechas de manera legible (dd/mm/aaaa)
     final String fechaInicioFormateada = tarea.fechaInicio != null
@@ -28,7 +29,7 @@ class DetalleTareaVista extends StatelessWidget {
       appBar: AppBar(
         // El título de la barra superior será el título de la tarea.
         title: Text(tarea.titulo),
-        backgroundColor: tarea.asignatura.color.withOpacity(0.2), // Un toque de color
+        backgroundColor: tarea.asignatura.color, // Un toque de color
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -72,7 +73,7 @@ class DetalleTareaVista extends StatelessWidget {
           label: Text(tarea.asignatura.nombre),
           backgroundColor: tarea.asignatura.color,
           labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          avatar: Icon(Icons.school, color: Colors.white.withOpacity(0.8)),
+          avatar: Icon(Icons.school, color: Colors.white38),
         ),
       ],
     );

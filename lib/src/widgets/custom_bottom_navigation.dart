@@ -36,7 +36,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
           if (selectedIndex == 1) {
             // context.go('/home_layout', extra: {'page': 'perfil'});
             //aqui la logica para agregar una tarea
-            mostrarPopup.mostrar(context);
+            MostrarPopup.mostrar(context);
             return;
           }
           if (selectedIndex == 2) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class mostrarPopup {
-  mostrarPopup(BuildContext context);
+class MostrarPopup {
+  MostrarPopup(BuildContext context);
   static void mostrar(BuildContext context) {
     
     // print('desde el popup: ${user?.email}');
@@ -15,7 +15,7 @@ class mostrarPopup {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              context.pop(context);
               context.go(
                 '/home_layout',
                 extra: {'page': 'ingresar_tarea'},

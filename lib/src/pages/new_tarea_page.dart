@@ -1,15 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
-import '../services/Asignaturas_provider.dart';
+
 
 class CrearTarea extends StatefulWidget {
-  const CrearTarea({super.key, required List asignaturas});
+  const CrearTarea({super.key});
   
-  get asignaturas => null;
+  
 
   @override
   State<CrearTarea> createState() => _CrearTareaPageState();
@@ -49,7 +49,6 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   void guardarTarea() {
     
-
     final titulo = tituloController.text;
     final descripcion = descripcionController.text;
 
@@ -88,7 +87,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
         actions: [
           TextButton(
             child: const Text('Aceptar'),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => context.pop(context),
           ),
         ],
       ),
@@ -99,11 +98,9 @@ class _CrearTareaPageState extends State<CrearTarea> {
   Widget build(BuildContext context) {
     final asignaturas = AsignaturasController.obtenerAsignaturas();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Crear Tarea')),
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(20.0),
-        child: ListView(
+        child: Column(
           children: [
             const Text('Título:', style: TextStyle(fontSize: 16)),
             TextField(
@@ -123,10 +120,10 @@ class _CrearTareaPageState extends State<CrearTarea> {
               isExpanded: true,
               value: asignaturaSeleccionada,
               hint: const Text('Selecciona una asignatura'),
-              items: widget.asignaturas.map((asignatura) {
-                return DropdownMenuItem(
-                  value: asignatura,
-                  child: Text(asignatura),
+              items: asignaturas.map((asignatura) {
+                return DropdownMenuItem<String>(
+                  value: asignatura.id,
+                  child: Text(asignatura.nombre),
                 );
               }).toList(),
               onChanged: (value) {
@@ -176,7 +173,6 @@ class _CrearTareaPageState extends State<CrearTarea> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

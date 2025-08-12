@@ -7,7 +7,6 @@ class TareasController extends GetxController {
   @override
   void onInit() {
     print('TareasController inicializado');
-    Get.put(TareasController());
     super.onInit();
   }
 

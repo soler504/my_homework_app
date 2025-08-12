@@ -240,6 +240,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       final user = userCredential.user;
                       print('user: ${user?.displayName}');
+                      
                       Sesion.setUsuario(user);
                       context.go('/home_layout', extra: {'page': 'home'});
                     }

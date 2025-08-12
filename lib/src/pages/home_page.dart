@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     
     
-    final user = FirebaseAuth.instance.currentUser;
+    final user = Sesion.usuario;
     print('user: ${user!=null ? user.displayName : 'No hay usuario'}');
     return SingleChildScrollView(
       child: Padding(

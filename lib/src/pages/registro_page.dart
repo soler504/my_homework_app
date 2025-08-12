@@ -83,7 +83,7 @@ class _RegistroPageState extends State<RegistroPage> {
             vertical: 40.0,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white70,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Form(

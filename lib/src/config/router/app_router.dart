@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/globales.dart';
+import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/bienvenida_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
@@ -41,10 +42,10 @@ final appRouter = GoRouter(
     GoRoute(path: '/', builder: (context, state) => BienvenidaPage()),
     GoRoute(path: '/login', builder: (context, state) => LoginPage()),
 
-    GoRoute(
-      path: '/Popup',
-      builder: (context, state) => mostrarPopup(context) as Widget,
-    ),
+    // GoRoute(
+    //   path: '/Popup',
+    //   builder: (context, state) => MostrarPopup(context) as Widget,
+    // ),
     GoRoute(
       name: 'ingresar_materia',
       path: '/nueva-asignatura',
@@ -56,20 +57,20 @@ final appRouter = GoRouter(
       name: 'ingresar_tarea',
       path: '/nueva-tarea',
       builder: (context, state) {
-        return CrearTarea(asignaturas: [],);
+        return CrearTarea();
       },
     ),
 
     GoRoute(path: '/registro', builder: (context, state) => RegistroPage()),
     //paginas principales
-    GoRoute(path: '/home', builder: (context, state) => HomePage()),
+    // GoRoute(path: '/home', builder: (context, state) => HomePage()),
     GoRoute(path: '/home_layout', builder: (context, state) => Layout()),
     GoRoute(
       path: '/notificacion',
       builder: (context, state) => NotificacionPage(),
     ),
-    GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
-    GoRoute(path: '/perfil', builder: (context, state) => PerfilPage()),
-    GoRoute(path: '/ver tareas', builder: (context, state) => DetalleTareaVista()),
+    // GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
+    // GoRoute(path: '/perfil', builder: (context, state) => PerfilPage()),
+    // GoRoute(path: '/ver tareas', builder: (context, state) => DetalleTareaVista(tarea: state.extra as Tarea)),
   ],
 );

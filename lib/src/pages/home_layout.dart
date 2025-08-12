@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/globales.dart';
+import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
 import 'package:my_homework_app/src/pages/home_page.dart';
@@ -55,11 +56,11 @@ class _LayoutState extends State<Layout> {
     } else if (page == 'perfil') {
       return PerfilPage();
     } else if (page == 'ingresar_tarea') {
-      return CrearTarea(asignaturas: [],); 
+      return CrearTarea(); 
     } else if (page == 'ingresar_materia') {
       return CrearAsignatura(); 
-  //  } else if (page =='ver tareas'){
-    //  return DetalleTareaVista();
+   } else if (page =='ver_tareas'){
+     return DetalleTareaVista(tarea: argumentos?['tarea'] as Tarea);
     }
   
     else{
