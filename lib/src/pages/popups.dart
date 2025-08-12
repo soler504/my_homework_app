@@ -9,6 +9,7 @@ class mostrarPopup {
             as Map<String, dynamic>?;
     final user = argumentos?['user'];
     print('desde el popup: ${user?.email}');
+    // Mostrar el diálogo de selección
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

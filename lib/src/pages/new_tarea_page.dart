@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_homework_app/src/model/asignatura_model.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
-import '../services/Asignaturas_provider.dart';
 
 class CrearTarea extends StatefulWidget {
-  const CrearTarea({super.key});
+  const CrearTarea({super.key, required List asignaturas});
+  
+  get asignaturas => null;
 
   @override
   State<CrearTarea> createState() => _CrearTareaPageState();
 }
 
 class _CrearTareaPageState extends State<CrearTarea> {
-  final asignaturasProvider = AsignaturasProvider();
-
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
 
@@ -45,31 +45,27 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   void guardarTarea() {
     Tarea nuevaTarea = Tarea(
+      id: DateTime.now().toString(),
       titulo: tituloController.text,
       descripcion: descripcionController.text,
-      asignatura: asignaturasProvider.obtenerAsignaturaPorId(
-        asignaturaSeleccionada!,
+      fechaLimite: fechaFin ?? DateTime.now(),
+      fechainicio: fechaInicio,
+      asignatura: Asignatura(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        nombre: asignaturaSeleccionada ?? '',
+        color: Colors.blue, // datos ingresados temporalmente para
       ),
-      fechaInicio: fechaInicio ?? DateTime.now(),
-      fechaLimite: fechaFin ?? DateTime.now().add(Duration(days: 7)),
-      id: '${DateTime.now().millisecondsSinceEpoch}',
+      completada: false,
     );
-
     final titulo = tituloController.text;
     final descripcion = descripcionController.text;
 
-    if (titulo.isEmpty ||
-        descripcion.isEmpty ||
-        asignaturaSeleccionada == null ||
-        fechaInicio == null ||
-        fechaFin == null) {
+    if (titulo.isEmpty || descripcion.isEmpty || asignaturaSeleccionada == null || fechaInicio == null || fechaFin == null) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Faltan campos'),
-          content: const Text(
-            'Completa todos los campos para guardar la tarea.',
-          ),
+          content: const Text('Completa todos los campos para guardar la tarea.'),
           actions: [
             TextButton(
               child: const Text('OK'),
@@ -98,8 +94,6 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   @override
   Widget build(BuildContext context) {
-    final asignaturas = asignaturasProvider.obtenerAsignaturas();
-
     return Scaffold(
       appBar: AppBar(title: const Text('Crear Tarea')),
       body: Padding(
@@ -109,18 +103,14 @@ class _CrearTareaPageState extends State<CrearTarea> {
             const Text('Título:', style: TextStyle(fontSize: 16)),
             TextField(
               controller: tituloController,
-              decoration: const InputDecoration(
-                hintText: 'Ej: Examen de Física',
-              ),
+              decoration: const InputDecoration(hintText: 'Ej: Examen de Física'),
             ),
             const SizedBox(height: 16),
             const Text('Descripción:', style: TextStyle(fontSize: 16)),
             TextField(
               controller: descripcionController,
               maxLines: 3,
-              decoration: const InputDecoration(
-                hintText: 'Detalles de la tarea...',
-              ),
+              decoration: const InputDecoration(hintText: 'Detalles de la tarea...'),
             ),
             const SizedBox(height: 16),
             const Text('Asignatura:', style: TextStyle(fontSize: 16)),
@@ -128,10 +118,10 @@ class _CrearTareaPageState extends State<CrearTarea> {
               isExpanded: true,
               value: asignaturaSeleccionada,
               hint: const Text('Selecciona una asignatura'),
-              items: asignaturas.map((asignatura) {
-                return DropdownMenuItem<String>(
-                  value: asignatura.id,
-                  child: Text(asignatura.nombre),
+              items: widget.asignaturas.map((asignatura) {
+                return DropdownMenuItem(
+                  value: asignatura,
+                  child: Text(asignatura),
                 );
               }).toList(),
               onChanged: (value) {
@@ -143,11 +133,9 @@ class _CrearTareaPageState extends State<CrearTarea> {
               children: [
                 const Text('Fecha inicio:'),
                 const SizedBox(width: 10),
-                Text(
-                  fechaInicio == null
-                      ? 'No seleccionada'
-                      : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
-                ),
+                Text(fechaInicio == null
+                    ? 'No seleccionada'
+                    : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}'),
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () => seleccionarFechaInicio(context),
@@ -160,11 +148,9 @@ class _CrearTareaPageState extends State<CrearTarea> {
               children: [
                 const Text('Fecha fin:'),
                 const SizedBox(width: 10),
-                Text(
-                  fechaFin == null
-                      ? 'No seleccionada'
-                      : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
-                ),
+                Text(fechaFin == null
+                    ? 'No seleccionada'
+                    : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}'),
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () => seleccionarFechaFin(context),

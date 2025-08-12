@@ -5,6 +5,7 @@ import 'package:my_homework_app/src/pages/calendar_page.dart';
 import 'package:my_homework_app/src/pages/home_page.dart';
 import 'package:my_homework_app/src/pages/new_tarea_page.dart';
 import 'package:my_homework_app/src/pages/perfil_page.dart';
+import 'package:my_homework_app/src/pages/ver_tareas_page.dart';
 import 'package:my_homework_app/src/widgets/custom_app_bar.dart';
 import 'package:my_homework_app/src/widgets/custom_bottom_navigation.dart';
 import 'package:my_homework_app/src/widgets/side_menu.dart';
@@ -51,10 +52,13 @@ class _LayoutState extends State<Layout> {
     } else if (page == 'perfil') {
       return PerfilPage();
     } else if (page == 'ingresar_tarea') {
-      return CrearTarea(); 
+      return CrearTarea(asignaturas: [],); 
     } else if (page == 'ingresar_materia') {
       return CrearAsignatura(); 
+  //  } else if (page =='ver tareas'){
+    //  return DetalleTareaVista();
     }
+  
     else{
       return HomePage(); 
     }

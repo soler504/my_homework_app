@@ -9,9 +9,9 @@ import 'package:my_homework_app/src/pages/login_page.dart';
 import 'package:my_homework_app/src/pages/new_tarea_page.dart';
 import 'package:my_homework_app/src/pages/notificacion_page.dart';
 import 'package:my_homework_app/src/pages/popups.dart';
-
 import 'package:my_homework_app/src/pages/perfil_page.dart';
 import 'package:my_homework_app/src/pages/registro_page.dart';
+import 'package:my_homework_app/src/pages/ver_tareas_page.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -35,7 +35,7 @@ final appRouter = GoRouter(
       name: 'ingresar_tarea',
       path: '/nueva-tarea',
       builder: (context, state) {
-        return CrearTarea();
+        return CrearTarea(asignaturas: [],);
       },
     ),
 
@@ -49,5 +49,6 @@ final appRouter = GoRouter(
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     GoRoute(path: '/perfil', builder: (context, state) => PerfilPage()),
+    GoRoute(path: '/ver tareas', builder: (context, state) => DetalleTareaVista()),
   ],
 );
