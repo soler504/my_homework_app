@@ -23,7 +23,7 @@ class _NotificacionPageState extends State<NotificacionPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Notificaciones')),
+          title: Center(child: Text('Recordatorio Notificaciones')),
           automaticallyImplyLeading: true,
         ),
         body: Column(
