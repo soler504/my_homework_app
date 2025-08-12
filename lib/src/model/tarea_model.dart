@@ -5,8 +5,8 @@ class Tarea{
   String id;
   String titulo;
   String descripcion;
-  DateTime fechaInicio;
   DateTime fechaLimite;
+  DateTime? fechainicio;
   Asignatura asignatura;
   bool completada;
   bool get isOverdue => fechaLimite.isBefore(DateTime.now());
@@ -16,8 +16,8 @@ class Tarea{
     required this.titulo,
     required this.asignatura,
     required this.descripcion,
-    required this.fechaInicio,
     required this.fechaLimite,
+    required this.fechainicio,
     this.completada = false,
   });
 
@@ -30,8 +30,6 @@ class Tarea{
       'id': id,
       'titulo': titulo,
       'descripcion': descripcion,
-      'asignaturaId': asignatura.id,
-      'fechaInicio': fechaInicio.toIso8601String(),
       'fechaLimite': fechaLimite.toIso8601String(),
       'completada': completada ? 1 : 0, // Convertir bool a int
     };
