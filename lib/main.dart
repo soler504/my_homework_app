@@ -7,6 +7,8 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+  
+  get appRouter => null;
 
   @override
   Widget build(BuildContext context) {
