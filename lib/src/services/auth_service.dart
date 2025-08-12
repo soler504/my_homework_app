@@ -53,4 +53,10 @@ class AuthService {
       return Future.error('Error al iniciar sesión con Google: $e');
     }
   }
+  Future<UserCredential> signInWithGoogleWeb() async {
+    // Solo para web
+    final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    return await _auth.signInWithPopup(googleProvider);
+  }
 }

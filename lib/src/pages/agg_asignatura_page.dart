@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/model/asignatura_model.dart';
 
@@ -56,17 +55,17 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
 
     AsignaturasController.add(nuevaAsignatura);
 
+    Navigator.pop(context);
     
-    context.go('/home_layout', extra:{'page':'home'});
   }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Nueva Asignatura'),
-      content: SingleChildScrollView(
-        child: Column(
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
               'Nombre de la asignatura:',
@@ -97,19 +96,17 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
                 });
               },
             ),
+            const SizedBox(height: 20),
+            TextButton(
+            child: const Text('Cancelar'),
+            onPressed: () => Navigator.pop(context),
+          ),
+          ElevatedButton(
+            onPressed: crearAsignatura,
+            child: const Text('Crear asignatura'),
+          ),
           ],
         ),
-      ),
-      actions: [
-        TextButton(
-          child: const Text('Cancelar'),
-          onPressed: () => Navigator.pop(context),
-        ),
-        ElevatedButton(
-          onPressed: crearAsignatura,
-          child: const Text('Crear asignatura'),
-        ),
-      ],
     );
   }
 }

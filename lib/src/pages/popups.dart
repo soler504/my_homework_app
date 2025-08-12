@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
+import 'package:my_homework_app/src/pages/new_tarea_page.dart';
 
 class MostrarPopup {
   MostrarPopup(BuildContext context);
@@ -12,24 +14,31 @@ class MostrarPopup {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         title: const Text("¿Qué deseas crear?"),
         content: const Text("Selecciona una de las siguientes opciones:"),
+        
         actions: [
           TextButton(
             onPressed: () {
-              context.pop(context);
-              context.go(
-                '/home_layout',
-                extra: {'page': 'ingresar_tarea'},
-              );
+              context.pop;
+              showDialog(context: context, builder: (context)=> Dialog(
+                child: CrearTarea(),
+              ));
+              // context.go(
+              //   '/home_layout',
+              //   extra: {'page': 'ingresar_tarea'},
+              // );
             },
             child: const Text("Nueva Tarea"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              context.go(
-                '/home_layout',
-                extra: {'page': 'ingresar_materia'},
-              );
+              context.pop;
+              showDialog(context: context, builder: (context)=> Dialog(
+                child: const CrearAsignatura(),
+              ));
+              // context.go(
+              //   '/home_layout',
+              //   extra: {'page': 'ingresar_materia'},
+              // );
               
             },
             child: const Text("Nueva Asignatura"),

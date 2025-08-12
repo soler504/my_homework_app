@@ -51,8 +51,8 @@ class Task extends StatelessWidget {
                       color: const Color.fromARGB(255, 8, 45, 75),
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.values[1],
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(titulo),
                         

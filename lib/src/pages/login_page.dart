@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/services/auth_service.dart';
@@ -168,7 +169,13 @@ class _LoginPageState extends State<LoginPage> {
                     return;
                   }
                   try{
+                    
+                    
+                      // Código para móvil/escritorio
                     final usuario = await _auth.singInConEmail(emailController.text, contraController.text);
+                    
+
+                    
                     if (usuario==null){
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -229,7 +236,14 @@ class _LoginPageState extends State<LoginPage> {
                 onpressed: () async {
                   try {
                     print('Iniciar sesión con Google');
-                    final userCredential = await _auth.signInWithGoogle();
+                    final UserCredential userCredential;
+                    if (kIsWeb) {
+                      userCredential = await _auth.signInWithGoogleWeb();
+                      
+                    }
+                    else {
+                      userCredential = await _auth.signInWithGoogle();
+                    }
                     // logica para acceder con google
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(

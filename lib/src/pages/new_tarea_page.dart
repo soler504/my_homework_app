@@ -79,100 +79,104 @@ class _CrearTareaPageState extends State<CrearTarea> {
       id: '${DateTime.now().millisecondsSinceEpoch}',
     );
     TareasController.agregar(nuevaTarea);
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Tarea guardada'),
-        content: Text('La tarea "$titulo" ha sido guardada correctamente.'),
-        actions: [
-          TextButton(
-            child: const Text('Aceptar'),
-            onPressed: () => context.pop(context),
-          ),
-        ],
-      ),
+    SnackBar snackBar = SnackBar(
+      content: Text('Tarea "$titulo" guardada correctamente.'),
+      duration: const Duration(seconds: 2),
     );
-  }
+    
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Navigator.pop(context);
+    }
+    
 
   @override
   Widget build(BuildContext context) {
     final asignaturas = AsignaturasController.obtenerAsignaturas();
 
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const Text('Título:', style: TextStyle(fontSize: 16)),
-            TextField(
-              controller: tituloController,
-              decoration: const InputDecoration(hintText: 'Ej: Examen de Física'),
-            ),
-            const SizedBox(height: 16),
-            const Text('Descripción:', style: TextStyle(fontSize: 16)),
-            TextField(
-              controller: descripcionController,
-              maxLines: 3,
-              decoration: const InputDecoration(hintText: 'Detalles de la tarea...'),
-            ),
-            const SizedBox(height: 16),
-            const Text('Asignatura:', style: TextStyle(fontSize: 16)),
-            DropdownButton<String>(
-              isExpanded: true,
-              value: asignaturaSeleccionada,
-              hint: const Text('Selecciona una asignatura'),
-              items: asignaturas.map((asignatura) {
-                return DropdownMenuItem<String>(
-                  value: asignatura.id,
-                  child: Text(asignatura.nombre),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() => asignaturaSeleccionada = value);
-              },
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Text('Fecha inicio:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaInicio == null
-                      ? 'No seleccionada'
-                      : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () => seleccionarFechaInicio(context),
-                  child: const Text('Seleccionar'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                const Text('Fecha fin:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaFin == null
-                      ? 'No seleccionada'
-                      : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () => seleccionarFechaFin(context),
-                  child: const Text('Seleccionar'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
-                onPressed: guardarTarea,
-                child: const Text('Guardar Tarea'),
+    return Container(
+      margin: EdgeInsets.all(2),
+      child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Título:', style: TextStyle(fontSize: 16)),
+              TextField(
+                controller: tituloController,
+                decoration: const InputDecoration(hintText: 'Ej: Examen de Física'),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              const Text('Descripción:', style: TextStyle(fontSize: 16)),
+              TextField(
+                controller: descripcionController,
+                maxLines: 3,
+                decoration: const InputDecoration(hintText: 'Detalles de la tarea...'),
+              ),
+              const SizedBox(height: 16),
+              const Text('Asignatura:', style: TextStyle(fontSize: 16)),
+              DropdownButton<String>(
+                isExpanded: true,
+                value: asignaturaSeleccionada,
+                hint: const Text('Selecciona una asignatura'),
+                items: asignaturas.map((asignatura) {
+                  return DropdownMenuItem<String>(
+                    value: asignatura.id,
+                    child: Text(asignatura.nombre),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() => asignaturaSeleccionada = value);
+                },
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Text('Fecha inicio:'),
+                  const SizedBox(width: 10),
+                  Text(
+                    fechaInicio == null
+                        ? 'No seleccionada'
+                        : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () => seleccionarFechaInicio(context),
+                    child: const Text('Seleccionar', style: TextStyle(
+                        fontSize: 10, fontWeight: FontWeight.w100)
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Text('Fecha fin:'),
+                  const SizedBox(width: 10),
+                  Text(
+                    fechaFin == null
+                        ? 'No seleccionada'
+                        : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () => seleccionarFechaFin(context),
+                    child: const Text('Seleccionar', style: TextStyle(
+                        fontSize: 10, fontWeight: FontWeight.w100)
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: ElevatedButton(
+                  onPressed: guardarTarea,
+                  child: const Text('Guardar Tarea'),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+    );
   }
 }

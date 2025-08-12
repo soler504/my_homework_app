@@ -1,21 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/globales.dart';
-import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/bienvenida_page.dart';
-import 'package:my_homework_app/src/pages/calendar_page.dart';
 import 'package:my_homework_app/src/pages/home_layout.dart';
-import 'package:my_homework_app/src/pages/home_page.dart';
 import 'package:my_homework_app/src/pages/login_page.dart';
 import 'package:my_homework_app/src/pages/new_tarea_page.dart';
 import 'package:my_homework_app/src/pages/notificacion_page.dart';
-import 'package:my_homework_app/src/pages/popups.dart';
-import 'package:my_homework_app/src/pages/perfil_page.dart';
 import 'package:my_homework_app/src/pages/registro_page.dart';
-import 'package:my_homework_app/src/pages/ver_tareas_page.dart';
 
 final appRouter = GoRouter(
   redirect: (context, state) {

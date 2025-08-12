@@ -50,12 +50,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDtChyTzjND51yNskBLe6g-EtI9-XRLWPo',
-    appId: '1:544423687769:web:65beb5e338dc6e6bf32348',
-    messagingSenderId: '544423687769',
-    projectId: 'my-homeworks-app',
-    authDomain: 'my-homeworks-app.firebaseapp.com',
-    storageBucket: 'my-homeworks-app.firebasestorage.app',
+    apiKey: "AIzaSyDtChyTzjND51yNskBLe6g-EtI9-XRLWPo",
+  authDomain: "my-homeworks-app.firebaseapp.com",
+  projectId: "my-homeworks-app",
+  storageBucket: "my-homeworks-app.firebasestorage.app",
+  messagingSenderId: "544423687769",
+  appId: "1:544423687769:web:65beb5e338dc6e6bf32348"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
