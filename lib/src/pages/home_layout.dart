@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
 import 'package:my_homework_app/src/pages/home_page.dart';
@@ -18,8 +21,8 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
-    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
-    final user = argumentos?['user'];
+    final User? user = FirebaseAuth.instance.currentUser;
+    print('Usuario actual: ${user?.email ?? 'No hay usuario'}');
     
     return SafeArea(
       child: Scaffold(

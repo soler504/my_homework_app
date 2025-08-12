@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/controller/theme_controller.dart';
 
 class SideMenu extends StatelessWidget {
@@ -9,8 +10,7 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
-    final user = argumentos?['user'];
+    final user = Get.find<Sesion>().usuarioActual;
     return Drawer(
       child: ListView(
         children: [
@@ -38,7 +38,7 @@ class SideMenu extends StatelessWidget {
           ),
            ListTile(
             onTap: () {
-              context.push('/home_layout', extra: {'page': 'perfil', 'user': user});
+              context.push('/home_layout', extra: {'page': 'perfil'});
             },
             title: Text('Perfil'),
             leading: Icon(Icons.person),

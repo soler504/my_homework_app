@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/services/auth_service.dart';
 import 'package:my_homework_app/src/widgets/caja_texto.dart';
 import 'package:my_homework_app/src/widgets/custom_elevatedbutton.dart';
@@ -243,14 +245,14 @@ class _RegistroPageState extends State<RegistroPage> {
         correo.text.trim(),
         contrasena.text.trim(),
       );
-
+      Sesion.setUsuario(user);
       SnackBar(
         content: Text('Registro exitoso. Bienvenido ${user!.displayName}!'),
         backgroundColor: Colors.green,
       );
       // Navegar a la pantalla principal después de registro exitoso
       if (context.mounted) {
-        context.go('/home_layout', extra: {'user': user, 'page': 'home'});
+          context.go('/home_layout', extra: {'page': 'home'});
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;

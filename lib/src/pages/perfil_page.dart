@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 
 
 class PerfilPage extends StatelessWidget {
@@ -6,6 +8,7 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Get.find<Sesion>().usuarioActual;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

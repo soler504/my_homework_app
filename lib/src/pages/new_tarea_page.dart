@@ -1,5 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
+import 'package:my_homework_app/src/services/Tareas_provider.dart';
+import 'package:my_homework_app/src/widgets/fecha_selector.dart';
 import '../services/Asignaturas_provider.dart';
 
 class CrearTarea extends StatefulWidget {
@@ -44,17 +52,6 @@ class _CrearTareaPageState extends State<CrearTarea> {
   }
 
   void guardarTarea() {
-    Tarea nuevaTarea = Tarea(
-      titulo: tituloController.text,
-      descripcion: descripcionController.text,
-      asignatura: asignaturasProvider.obtenerAsignaturaPorId(
-        asignaturaSeleccionada!,
-      ),
-      fechaInicio: fechaInicio ?? DateTime.now(),
-      fechaLimite: fechaFin ?? DateTime.now().add(Duration(days: 7)),
-      id: '${DateTime.now().millisecondsSinceEpoch}',
-    );
-
     final titulo = tituloController.text;
     final descripcion = descripcionController.text;
 
@@ -73,14 +70,24 @@ class _CrearTareaPageState extends State<CrearTarea> {
           actions: [
             TextButton(
               child: const Text('OK'),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => context.pop(context),
             ),
           ],
         ),
       );
       return;
     }
-
+    Tarea nuevaTarea = Tarea(
+      titulo: tituloController.text,
+      descripcion: descripcionController.text,
+      asignatura: asignaturasProvider.obtenerAsignaturaPorId(
+        asignaturaSeleccionada!,
+      ),
+      fechaInicio: fechaInicio ?? DateTime.now(),
+      fechaLimite: fechaFin ?? DateTime.now().add(Duration(days: 7)),
+      id: '${DateTime.now().millisecondsSinceEpoch}',
+    );
+    TareasController.agregar(nuevaTarea);
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -98,7 +105,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   @override
   Widget build(BuildContext context) {
-    final asignaturas = asignaturasProvider.obtenerAsignaturas();
+    final asignaturas = AsignaturasController.obtenerAsignaturas();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Crear Tarea')),
@@ -139,38 +146,16 @@ class _CrearTareaPageState extends State<CrearTarea> {
               },
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                const Text('Fecha inicio:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaInicio == null
-                      ? 'No seleccionada'
-                      : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () => seleccionarFechaInicio(context),
-                  child: const Text('Seleccionar'),
-                ),
-              ],
+            FechaSelector(
+              label: 'Fecha inicio:',
+              fecha: fechaInicio,
+              onSeleccionar: () => seleccionarFechaInicio(context),
             ),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                const Text('Fecha fin:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaFin == null
-                      ? 'No seleccionada'
-                      : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () => seleccionarFechaFin(context),
-                  child: const Text('Seleccionar'),
-                ),
-              ],
+            FechaSelector(
+              label: 'Fecha Fin:',
+              fecha: fechaFin,
+              onSeleccionar: () => seleccionarFechaFin(context),
             ),
             const SizedBox(height: 30),
             Center(

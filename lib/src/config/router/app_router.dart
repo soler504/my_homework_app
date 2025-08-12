@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/bienvenida_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
@@ -14,6 +17,24 @@ import 'package:my_homework_app/src/pages/perfil_page.dart';
 import 'package:my_homework_app/src/pages/registro_page.dart';
 
 final appRouter = GoRouter(
+  redirect: (context, state) {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null && 
+    !state.matchedLocation.startsWith('/login') &&
+    !state.matchedLocation.startsWith('/registro') &&
+    !state.matchedLocation.startsWith('/')) {
+      return '/login';
+    }
+    if (user != null && 
+        (state.matchedLocation == '/login' || 
+         state.matchedLocation == '/register')) {
+      Get.find<Sesion>().usuarioActual = user;
+      return '/home_layout';
+    }
+
+    return null;
+
+  },
   initialLocation: '/',
   routes: [
     //paginas iniciales, bienvenida, login, registro

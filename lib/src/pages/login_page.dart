@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/services/auth_service.dart';
-
 import 'package:my_homework_app/src/widgets/caja_texto.dart';
 import 'package:my_homework_app/src/widgets/custom_elevatedbutton.dart';
 
@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // bool _isLoading = false;
   final _auth = AuthService();
-
+  
   final contraController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -193,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       // Navegar a la pantalla principal después de iniciar sesión exitosamente 
                       print('usuario: ${usuario.displayName}');
-                      context.go('/home_layout', extra: {'user': usuario});
+                      Get.find<Sesion>().setUser(usuario);
+                      context.go('/home_layout', extra: {'page': 'home'});
                     }
                   }
                   catch(e){
@@ -236,10 +237,11 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       // Navegar a la pantalla principal después de iniciar sesión exitosamente 
                       print('userCredential: ${userCredential.user}');
+
                       final user = userCredential.user;
                       print('user: ${user?.displayName}');
-
-                      context.go('/home_layout', extra: {'user': user, 'page': 'home'});
+                      Get.find<Sesion>().setUser(user);
+                      context.go('/home_layout', extra: {'page': 'home'});
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(

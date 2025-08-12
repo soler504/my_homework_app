@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/widgets/card_dashboard.dart';
 
 
@@ -17,9 +20,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     
-    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
-    final user = argumentos?['user'] as User?;
     
+    final user = FirebaseAuth.instance.currentUser;
     print('user: ${user!=null ? user.displayName : 'No hay usuario'}');
     return SingleChildScrollView(
         child: Padding(

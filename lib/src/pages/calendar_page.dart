@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/model/meeting.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -13,9 +13,9 @@ class _CalendarPageState extends State<CalendarPage> {
   
   @override
   Widget build(BuildContext context) {
-    final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
-    final user = argumentos?['user'];
-    print('user: $user');
+    // final argumentos = GoRouter.of(context).routerDelegate.currentConfiguration.extra as Map<String, dynamic>?;
+    // final user = argumentos?['user'];
+    // print('user: $user');
     return SfCalendar(
         view: CalendarView.month,
         firstDayOfWeek: 1,

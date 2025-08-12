@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
+import 'package:my_homework_app/src/model/asignatura_model.dart';
+
 
 class CrearAsignatura extends StatefulWidget {
-  final void Function(String nombre, Color color)? onAsignaturaCreada;
+  
 
-  const CrearAsignatura({super.key, this.onAsignaturaCreada});
+  const CrearAsignatura({super.key});
 
   @override
   State<CrearAsignatura> createState() => _CrearAsignaturaPopupState();
 }
 
 class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
+  
   final TextEditingController nombreController = TextEditingController();
   String? colorSeleccionado;
 
@@ -40,11 +45,19 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
           ],
         ),
       );
+
       return;
     }
+    final nuevaAsignatura = Asignatura(
+      id: '${DateTime.now().millisecondsSinceEpoch}',
+      nombre: nombreController.text,
+      color: color,
+    );
 
-    widget.onAsignaturaCreada?.call(nombre, color);
-    Navigator.pop(context);
+    AsignaturasController.add(nuevaAsignatura);
+
+    
+    context.go('/home_layout', extra:{'page':'home'});
   }
 
   @override
@@ -55,12 +68,13 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Nombre de la asignatura:', style: TextStyle(fontSize: 16)),
+            const Text(
+              'Nombre de la asignatura:',
+              style: TextStyle(fontSize: 16),
+            ),
             TextField(
               controller: nombreController,
-              decoration: const InputDecoration(
-                hintText: 'Ej: Matemáticas',
-              ),
+              decoration: const InputDecoration(hintText: 'Ej: Matemáticas'),
             ),
             const SizedBox(height: 20),
             const Text('Color del texto:', style: TextStyle(fontSize: 16)),

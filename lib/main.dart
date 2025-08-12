@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/config/router/app_router.dart';
 import 'package:my_homework_app/src/config/theme/app_theme.dart';
+import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/controller/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_homework_app/src/services/notification_service.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initNotification();
+  final sesionController = Get.put(Sesion());
 
   runApp(const MainApp());
 }
@@ -21,7 +23,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.put(ThemeController());
-
+    
     return Obx(() {
       return MaterialApp.router(
         debugShowCheckedModeBanner: false,
