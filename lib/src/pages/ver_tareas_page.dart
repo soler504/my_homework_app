@@ -17,8 +17,8 @@ class DetalleTareaVista extends StatelessWidget {
     final user = argumentos?['ver tareas '];
     print('desde el popup: ${user?.email}');
     // Para formatear las fechas de manera legible (dd/mm/aaaa)
-    final String fechaInicioFormateada = tarea.fechainicio != null
-        ? '${tarea.fechainicio!.day}/${tarea.fechainicio!.month}/${tarea.fechainicio!.year}'
+    final String fechaInicioFormateada = tarea.fechaInicio != null
+        ? '${tarea.fechaInicio!.day}/${tarea.fechaInicio!.month}/${tarea.fechaInicio!.year}'
         : 'No definida';
         
     final String fechaFinFormateada =

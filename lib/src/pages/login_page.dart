@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       // Navegar a la pantalla principal después de iniciar sesión exitosamente 
                       print('usuario: ${usuario.displayName}');
-                      Get.find<Sesion>().setUser(usuario);
+                      Sesion.setUsuario(usuario);
                       context.go('/home_layout', extra: {'page': 'home'});
                     }
                   }
@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       final user = userCredential.user;
                       print('user: ${user?.displayName}');
-                      Get.find<Sesion>().setUser(user);
+                      Sesion.setUsuario(user);
                       context.go('/home_layout', extra: {'page': 'home'});
                     }
                   } catch (e) {

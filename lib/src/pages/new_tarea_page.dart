@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
 import '../services/Asignaturas_provider.dart';
 
@@ -45,16 +48,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
   }
 
   void guardarTarea() {
-    Tarea nuevaTarea = Tarea(
-      titulo: tituloController.text,
-      descripcion: descripcionController.text,
-      asignatura: asignaturasProvider.obtenerAsignaturaPorId(
-        asignaturaSeleccionada!,
-      ),
-      fechaInicio: fechaInicio ?? DateTime.now(),
-      fechaLimite: fechaFin ?? DateTime.now().add(Duration(days: 7)),
-      id: '${DateTime.now().millisecondsSinceEpoch}',
-    );
+    
 
     final titulo = tituloController.text;
     final descripcion = descripcionController.text;
@@ -68,7 +62,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
           actions: [
             TextButton(
               child: const Text('OK'),
-              onPressed: () => context.pop(context),
+              onPressed: () => context.pop(),
             ),
           ],
         ),
@@ -78,7 +72,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
     Tarea nuevaTarea = Tarea(
       titulo: tituloController.text,
       descripcion: descripcionController.text,
-      asignatura: asignaturasProvider.obtenerAsignaturaPorId(
+      asignatura: AsignaturasController.obtenerPorId(
         asignaturaSeleccionada!,
       ),
       fechaInicio: fechaInicio ?? DateTime.now(),
@@ -103,7 +97,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   @override
   Widget build(BuildContext context) {
-    final asignaturas = asignaturasProvider.obtenerAsignaturas();
+    final asignaturas = AsignaturasController.obtenerAsignaturas();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Crear Tarea')),

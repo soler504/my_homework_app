@@ -6,7 +6,7 @@ class Tarea{
   String titulo;
   String descripcion;
   DateTime fechaLimite;
-  DateTime? fechainicio;
+  DateTime? fechaInicio;
   Asignatura asignatura;
   bool completada;
   bool get isOverdue => fechaLimite.isBefore(DateTime.now());
@@ -17,7 +17,7 @@ class Tarea{
     required this.asignatura,
     required this.descripcion,
     required this.fechaLimite,
-    required this.fechainicio,
+    required this.fechaInicio,
     this.completada = false,
   });
 
