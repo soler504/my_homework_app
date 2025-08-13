@@ -22,7 +22,7 @@ class TareasProvider {
   // Método para marcar una tarea como completada
   void completarTarea(int index) {
     if (index >= 0 && index < tareas.length) {
-      tareas[index].completadaStatus = true;
+      tareas[index].completada = true;
     }
   }
   // Método para eliminar una tarea

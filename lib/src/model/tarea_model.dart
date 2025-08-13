@@ -21,9 +21,18 @@ class Tarea{
     this.completada = false,
   });
 
-  set completadaStatus(bool value) {
-    completada = value;
+  factory Tarea.fromMap(Map<String, dynamic> map) {
+    return Tarea(
+      id: map['id'] ?? '',
+      titulo: map['titulo'] ?? '',
+      descripcion: map['descripcion'] ?? '',
+      fechaLimite: DateTime.parse(map['fechaLimite']),
+      fechaInicio: map['fechaInicio'] != null ? DateTime.parse(map['fechaInicio']) : null,
+      asignatura: Asignatura.fromMap(map['asignatura']),
+      completada: map['completada'] == 1, // Convertir int a bool
+    );
   }
+
   // Método para convertir un objeto Tarea a un mapa
   Map<String, dynamic> toMap() {
     return {

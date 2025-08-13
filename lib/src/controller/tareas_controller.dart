@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:my_homework_app/src/services/Tareas_provider.dart';
 
+
 class TareasController extends GetxController {
   final TareasProvider _tareasProvider = TareasProvider();
   @override
