@@ -1,50 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 
 class Task extends StatelessWidget {
+  final TareasController controller = Get.find<TareasController>();
   final String titulo;
   final String asignatura;
   final DateTime fecha;
   final IconData iconData;
   final Color color;
+  final int index;
 
-  const Task({
+  Task({
     super.key,
     required this.titulo,
     required this.asignatura,
     required this.fecha,
     required this.iconData,
     required this.color,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
-    
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.9,
-        
         child: Card(
           child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              
               Container(
                 padding: EdgeInsets.all(5),
-                
                 decoration: BoxDecoration(
                   color: Colors.blueGrey[500],
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: RotatedBox(quarterTurns: -1, child: Text(asignatura),))
-              ,
+                child: RotatedBox(quarterTurns: -1, child: Text(asignatura)),
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    
                     Icon(
                       Icons.task,
                       size: 50,
@@ -55,7 +55,6 @@ class Task extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(titulo),
-                        
                         Text('${fecha.day}-${fecha.month}-${fecha.year}'),
                       ],
                     ),
@@ -67,9 +66,17 @@ class Task extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            title: const Text("¿Deseas cambiar el estado de la tarea?"),
+                            title: const Text(
+                              "¿Deseas cambiar el estado de la tarea?",
+                            ),
                             actions: [
-                              TextButton(onPressed: () {}, child: Text('Si')),
+                              TextButton(
+                                onPressed: () {
+                                  controller.cambiarEstadoTarea(index);
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Si'),
+                              ),
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
                                 child: Text('No'),
@@ -82,7 +89,7 @@ class Task extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

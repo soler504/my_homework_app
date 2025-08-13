@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
@@ -16,7 +17,8 @@ class CrearTarea extends StatefulWidget {
 class _CrearTareaPageState extends State<CrearTarea> {
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-
+  final TareasController controller = Get.find<TareasController>();
+  
   String? asignaturaSeleccionada;
   DateTime? fechaInicio;
   DateTime? fechaFin;
@@ -75,7 +77,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
       fechaLimite: fechaFin ?? DateTime.now().add(const Duration(days: 7)),
       id: '${DateTime.now().millisecondsSinceEpoch}',
     );
-    TareasController.agregar(nuevaTarea);
+    controller.agregarTarea(nuevaTarea);
     SnackBar snackBar = SnackBar(
       content: Text('Tarea "$titulo" guardada correctamente.'),
       duration: const Duration(seconds: 2),
