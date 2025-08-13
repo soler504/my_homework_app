@@ -44,10 +44,15 @@ class _NotificacionPageState extends State<NotificacionPage> {
             Boton(
               texto: 'Test',
               onpressed: () async {
-                bool isGranted = await checkPermission(context);
+                bool isGranted = await NotificationService().checkPermission(
+                  context,
+                );
 
                 if (isGranted) {
-                  await showNotification('titulo', 'descripcion');
+                  await NotificationService().showNotification(
+                    'titulo',
+                    'descripcion',
+                  );
                 }
               },
             ),
