@@ -65,6 +65,22 @@ class _CrearTareaPageState extends State<CrearTarea> {
       );
       return;
     }
+    if (fechaFin!.isBefore(fechaInicio!)) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Fechas incorrectas'),
+          content: const Text('La fecha final no puede ser menor que la fecha de inicio.'),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => context.pop(),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
     Tarea nuevaTarea = Tarea(
       titulo: tituloController.text,
       descripcion: descripcionController.text,
@@ -81,8 +97,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
       duration: const Duration(seconds: 2),
     );
     
-    // El doble pop podría ser para cerrar un modal y luego la pantalla de creación.
-    // Esto es correcto si la pantalla se muestra sobre otra que también debe cerrarse.
+   
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     Navigator.pop(context);
@@ -93,100 +108,107 @@ class _CrearTareaPageState extends State<CrearTarea> {
   Widget build(BuildContext context) {
     final asignaturas = AsignaturasController.obtenerAsignaturas();
 
-    return Container(
-      margin: const EdgeInsets.all(2),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Título:', style: TextStyle(fontSize: 16)),
-            TextField(
-              controller: tituloController,
-              decoration: const InputDecoration(hintText: 'Ej: Examen de Física'),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
             ),
-            const SizedBox(height: 16),
-            const Text('Descripción:', style: TextStyle(fontSize: 16)),
-            TextField(
-              controller: descripcionController,
-              maxLines: 3,
-              decoration: const InputDecoration(hintText: 'Detalles de la tarea...'),
+            child: IntrinsicHeight(
+              child: Container(
+                margin: const EdgeInsets.all(2),
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Título:', style: TextStyle(fontSize: 16)),
+                    TextField(
+                      controller: tituloController,
+                      decoration: const InputDecoration(hintText: 'Ej: Examen de Física'),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Descripción:', style: TextStyle(fontSize: 16)),
+                    TextField(
+                      controller: descripcionController,
+                      maxLines: 3,
+                      decoration: const InputDecoration(hintText: 'Detalles de la tarea...'),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Asignatura:', style: TextStyle(fontSize: 16)),
+                    DropdownButton<String>(
+                      isExpanded: true,
+                      value: asignaturaSeleccionada,
+                      hint: const Text('Selecciona una asignatura'),
+                      items: asignaturas.map((asignatura) {
+                        return DropdownMenuItem<String>(
+                          value: asignatura.id,
+                          child: Text(asignatura.nombre),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => asignaturaSeleccionada = value);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        const Text('Fecha inicio:'),
+                        const SizedBox(width: 10),
+                        Text(
+                          fechaInicio == null
+                              ? 'No seleccionada'
+                              : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () => seleccionarFechaInicio(context),
+                          child: const Text('Seleccionar', style: TextStyle(
+                              fontSize: 10, fontWeight: FontWeight.w100)
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        const Text('Fecha final:'),
+                        const SizedBox(width: 10),
+                        Text(
+                          fechaFin == null
+                              ? 'No seleccionada'
+                              : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () => seleccionarFechaFin(context),
+                          child: const Text('Seleccionar', style: TextStyle(
+                              fontSize: 10, fontWeight: FontWeight.w100)
+                              ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
+                      children: [
+                        TextButton(
+                          onPressed: () => context.pop(MostrarPopup(context)), 
+                          child: const Text('Cancelar')  
+                          ),
+                        ElevatedButton(
+                          onPressed: guardarTarea,
+                          child: const Text('Guardar Tarea'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(height: 16),
-            const Text('Asignatura:', style: TextStyle(fontSize: 16)),
-            DropdownButton<String>(
-              isExpanded: true,
-              value: asignaturaSeleccionada,
-              hint: const Text('Selecciona una asignatura'),
-              items: asignaturas.map((asignatura) {
-                return DropdownMenuItem<String>(
-                  value: asignatura.id,
-                  child: Text(asignatura.nombre),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() => asignaturaSeleccionada = value);
-              },
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Text('Fecha inicio:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaInicio == null
-                      ? 'No seleccionada'
-                      : '${fechaInicio!.day}/${fechaInicio!.month}/${fechaInicio!.year}',
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () => seleccionarFechaInicio(context),
-                  child: const Text('Seleccionar', style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w100)
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                const Text('Fecha fin:'),
-                const SizedBox(width: 10),
-                Text(
-                  fechaFin == null
-                      ? 'No seleccionada'
-                      : '${fechaFin!.day}/${fechaFin!.month}/${fechaFin!.year}',
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () => seleccionarFechaFin(context),
-                  child: const Text('Seleccionar', style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w100)
-                      ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
-              children: [
-                // Botón para cancelar y volver
-                TextButton(
-                  onPressed: () => context.pop(MostrarPopup(context)), 
-                  child: const Text('Cancelar'),
-                ),
-                // Botón para guardar la tarea
-                ElevatedButton(
-                  onPressed: guardarTarea,
-                  child: const Text('Guardar Tarea'),
-                ),
-              ],
-            ),
-           
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
