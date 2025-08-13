@@ -35,10 +35,6 @@ final appRouter = GoRouter(
     GoRoute(path: '/', builder: (context, state) => BienvenidaPage()),
     GoRoute(path: '/login', builder: (context, state) => LoginPage()),
 
-    // GoRoute(
-    //   path: '/Popup',
-    //   builder: (context, state) => MostrarPopup(context) as Widget,
-    // ),
     GoRoute(
       name: 'ingresar_materia',
       path: '/nueva-asignatura',
@@ -55,15 +51,11 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(path: '/registro', builder: (context, state) => RegistroPage()),
-    //paginas principales
-    // GoRoute(path: '/home', builder: (context, state) => HomePage()),
     GoRoute(path: '/home_layout', builder: (context, state) => Layout()),
     GoRoute(
       path: '/notificacion',
       builder: (context, state) => NotificacionPage(),
     ),
-    // GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
-    // GoRoute(path: '/perfil', builder: (context, state) => PerfilPage()),
-    // GoRoute(path: '/ver tareas', builder: (context, state) => DetalleTareaVista(tarea: state.extra as Tarea)),
+
   ],
 );

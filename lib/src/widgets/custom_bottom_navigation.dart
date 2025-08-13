@@ -12,7 +12,6 @@ class CustomBottomNavigation extends StatefulWidget {
 class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    
     // print('desde el bottom navigation: ${user?.email}');
     int selectedIndex = 0;
     return BottomNavigationBar(
@@ -29,25 +28,17 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         setState(() {
           selectedIndex = value;
           if (selectedIndex == 0) {
-            context.go('/home_layout', 
-            extra: {'page': 'home'});
+            context.go('/home_layout', extra: {'page': 'home'});
             return;
           }
           if (selectedIndex == 1) {
-            // context.go('/home_layout', extra: {'page': 'perfil'});
-            //aqui la logica para agregar una tarea
             MostrarPopup.mostrar(context);
             return;
           }
           if (selectedIndex == 2) {
-            context.go(
-              '/home_layout',
-              extra: {'page': 'calendar'},
-            );
+            context.go('/home_layout', extra: {'page': 'calendar'});
             return;
           }
-
-          
         });
       },
     );

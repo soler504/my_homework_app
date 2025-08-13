@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
 
-// Un widget para mostrar los detalles de una tarea específica.
+
 class DetalleTareaVista extends StatelessWidget {
-  // La tarea que se va a mostrar. Se recibe a través del constructor.
+ 
   final Tarea tarea;
 
   const DetalleTareaVista({super.key, required this.tarea});
@@ -14,11 +12,17 @@ class DetalleTareaVista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Se obtiene la tarea desde los argumentos pasados a la ruta.
-    final user = FirebaseAuth.instance.currentUser;
+
         
-    print('desde el popup: ${user?.email}');
-    // Para formatear las fechas de manera legible (dd/mm/aaaa)
+    //print('desde el popup: ${user?.email}');
+    
+    final String? userEmail = FirebaseAuth.instance.currentUser?.email;
+    if (userEmail == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Error')),
+        body: const Center(child: Text('Usuario no autenticado')),
+      );
+    }
     final String fechaInicioFormateada = tarea.fechaInicio != null
         ? '${tarea.fechaInicio!.day}/${tarea.fechaInicio!.month}/${tarea.fechaInicio!.year}'
         : 'No definida';
@@ -30,25 +34,25 @@ class DetalleTareaVista extends StatelessWidget {
       appBar: AppBar(
         // El título de la barra superior será el título de la tarea.
         title: Text(tarea.titulo),
-        backgroundColor: tarea.asignatura.color, // Un toque de color
+        backgroundColor: tarea.asignatura.color, 
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            // Sección del Título
+            
             _buildTituloSeccion(),
             const SizedBox(height: 24),
 
-            // Sección de Fechas
+          
             _buildFechasSeccion(fechaInicioFormateada, fechaFinFormateada),
             const Divider(height: 32),
 
-            // Sección de Descripción
+          
             _buildDescripcionSeccion(),
             const Divider(height: 32),
 
-            // Sección de Estado
+            
             _buildEstadoSeccion(),
           ],
         ),
@@ -134,7 +138,7 @@ class DetalleTareaVista extends StatelessWidget {
     );
   }
   
-  // Helper para crear columnas de información reutilizables
+
   Widget _buildInfoColumna(String titulo, String valor, IconData icono) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
