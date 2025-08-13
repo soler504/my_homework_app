@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
+import 'package:my_homework_app/src/pages/ver_tareas_page.dart';
 import 'package:my_homework_app/src/widgets/task.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -44,24 +45,29 @@ class CalendarPage extends StatelessWidget {
                     ),
                   )
                 : ListView.builder(
-                    itemCount: controller.tareasFiltradas.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
+                    itemCount: controller.tareasFiltradas.length,
+                    itemBuilder: (context, index) {
                       final tarea = controller.tareasFiltradas[index];
-
-                      return Task(
-                        titulo: tarea.titulo,
-                        asignatura: tarea.asignatura.nombre,
-                        fecha: tarea.fechaLimite,
-                        iconData: tarea.completada
-                            ? Icons.check
-                            : Icons.cancel_outlined,
-                        color: tarea.completada ? Colors.green : Colors.red,
-                        id: tarea.id,
+                    return Task(
+                      titulo: tarea.titulo,
+                      asignatura: tarea.asignatura.nombre,
+                      fecha: tarea.fechaLimite,
+                      iconData: tarea.completada ? Icons.check : Icons.cancel_outlined,
+                      color: tarea.completada ? Colors.green : Colors.red,
+                      id: tarea.id,
+                       onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => DetalleTareaVista(tarea: tarea),
+                            ) ,
+                          );
+                        },
                       );
-                    },
-                  ),
+                    }
+              ),
           ],
         ),
       );
