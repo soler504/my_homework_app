@@ -1,67 +1,89 @@
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
-import 'package:my_homework_app/src/services/Tareas_provider.dart';
-
 
 class TareasController extends GetxController {
-  final TareasProvider _tareasProvider = TareasProvider();
+  var tareas = <Tarea>[].obs;
+
+  RxInt tareasFueraFecha = 0.obs;
+  RxInt tareasPendientes = 0.obs;
+  RxInt tareasCompletadas = 0.obs;
+  RxInt proximasTareas = 0.obs;
+  RxList tareasHoy = [].obs;
+
   @override
   void onInit() {
-    print('TareasController inicializado');
     super.onInit();
+
+    ever(tareas, (_) => _actualizarContadores());
+    ever(tareas, (_) => _obtenerTareasDeHoy());
   }
 
-  void _agregarTarea(Tarea tarea) {
-    _tareasProvider.agregarTarea(tarea);
-    update();
+  void _actualizarContadores() {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    tareasFueraFecha.value = tareas
+        .where(
+          (t) =>
+              t.isOverdue &&
+              t.fechaLimite.year == today.year &&
+              t.fechaLimite.month == today.month,
+        )
+        .length;
+
+    tareasPendientes.value = tareas
+        .where(
+          (t) =>
+              !t.completada &&
+              t.fechaLimite.year == today.year &&
+              t.fechaLimite.month == today.month,
+        )
+        .length;
+
+    tareasCompletadas.value = tareas
+        .where(
+          (t) =>
+              t.completada &&
+              t.fechaLimite.year == today.year &&
+              t.fechaLimite.month == today.month,
+        )
+        .length;
+
+    proximasTareas.value = tareas
+        .where((t) => t.fechaLimite.isAfter(DateTime.now()))
+        .length;
   }
 
-  List<Tarea> _obtenerTareas() {
-    return _tareasProvider.obtenerTareas();
-  }
-  List<Tarea> _obtenerTareasPorAsignatura(String asignaturaId) {
-    return _tareasProvider.obtenerTareasPorAsignatura(asignaturaId);
-  }
-  void _eliminarTarea(int index) {
-    _tareasProvider.eliminarTarea(index);
-    update();
-  }
-  void _actualizarTarea(int index,Tarea tarea) {
-    _tareasProvider.actualizarTarea(index, tarea);
-    update();
-  }
-  List<Tarea>? _obtenerTareasCompletadas() {
-    return _tareasProvider.obtenerTareasCompletadas();
+  void _obtenerTareasDeHoy() {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    tareasHoy.value = tareas
+        .where(
+          (x) =>
+              x.fechaLimite.year == today.year &&
+              x.fechaLimite.month == today.month &&
+              x.fechaLimite.day == today.day,
+        )
+        .toList();
   }
 
-  static void agregar(Tarea tarea) {
-    final controller = Get.find<TareasController>();
-    controller._agregarTarea(tarea);
+  void agregarTarea(Tarea tarea) {
+    tareas.add(tarea);
   }
 
-  static List<Tarea> obtenerTareas() {
-    final controller = Get.find<TareasController>();
-    return controller._obtenerTareas();
+  void eliminarTarea(int index) {
+    tareas.removeAt(index);
   }
 
-  static List<Tarea> obtenerTareasPorAsignatura(String asignaturaId) {
-    final controller = Get.find<TareasController>();
-    return controller._obtenerTareasPorAsignatura(asignaturaId);
+  void actualizarTarea(int index, Tarea tarea) {
+    tareas[index] = tarea;
   }
 
-  static void eliminar(int index) {
-    final controller = Get.find<TareasController>();
-    controller._eliminarTarea(index);
+  void cambiarEstadoTarea(int index) {
+    if (index >= 0 && index < tareas.length) {
+      tareas[index].completada = !tareas[index].completada;
+      tareas[index] = tareas[index];
+    }
   }
-
-  static void actualizar(int index, Tarea tarea) {
-    final controller = Get.find<TareasController>();
-    controller._actualizarTarea(index, tarea);
-  }
-
-  static List<Tarea>? obtenerTareasCompletadas() {
-    final controller = Get.find<TareasController>();
-    return controller._obtenerTareasCompletadas();
-  }
-
 }

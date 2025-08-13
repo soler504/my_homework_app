@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/model/asignatura_model.dart';
-import 'package:my_homework_app/src/services/Asignaturas_provider.dart';
+import 'package:my_homework_app/src/services/asignaturas_provider.dart';
 
 class AsignaturasController extends GetxController {
   final AsignaturasProvider _asignaturasProvider = AsignaturasProvider();

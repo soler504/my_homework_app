@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_homework_app/src/model/meeting.dart';
@@ -39,6 +38,7 @@ class _CalendarPageState extends State<CalendarPage> {
             fecha: DateTime.now(),
             iconData: Icons.check,
             color: Colors.green,
+            index: 0,
           ),
           Task(
             titulo: 'Titulo',
@@ -46,6 +46,7 @@ class _CalendarPageState extends State<CalendarPage> {
             fecha: DateTime.now(),
             iconData: Icons.cancel_outlined,
             color: Colors.red,
+            index: 0,
           ),
         ],
       ),
