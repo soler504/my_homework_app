@@ -1,59 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/services/notification_service.dart';
-import 'package:my_homework_app/src/widgets/custom_elevatedbutton.dart';
 
-class NotificacionPage extends StatefulWidget {
-  const NotificacionPage({super.key});
+class NotificacionPage extends StatelessWidget {
+  NotificacionPage({super.key});
+  final TareasController controller = Get.find<TareasController>();
 
-  @override
-  State<NotificacionPage> createState() => _NotificacionPageState();
-}
+  final List<String> opciones = [
+    '1 día antes',
+    '2 días antes',
+    '3 días antes',
+    'No recibir notificaciones',
+  ];
 
-class _NotificacionPageState extends State<NotificacionPage> {
   @override
   Widget build(BuildContext context) {
-    bool? value = false;
-    List<String> opciones = [
-      '1 día antes',
-      '2 días antes',
-      '1 hora antes',
-      'No recibir notificaciones',
-    ];
+    controller.selectedIndex.value = controller.selectedIndex.value;
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text('Recordatorio Notificaciones')),
-          automaticallyImplyLeading: true,
-        ),
-        body: Column(
-          children: [
-            ...opciones.map(
-              (opcion) => ListTile(
-                title: Text(opcion),
-                leading: Checkbox(
-                  value: value,
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      value = newValue;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Boton(
-              texto: 'Test',
-              onpressed: () async {
-                bool isGranted = await checkPermission(context);
+    return Obx(() {
+      return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Center(child: Text('Recordatorio Notificaciones')),
+            automaticallyImplyLeading: true,
+          ),
+          body: Column(
+            children: [
+              ...List.generate(opciones.length, (index) {
+                return ListTile(
+                  title: Text(opciones[index]),
+                  leading: Radio<int>(
+                    value: index,
+                    groupValue: controller.selectedIndex.value,
+                    onChanged: (int? newValue) async {
+                      controller.selectedIndex.value = newValue ?? 3;
 
-                if (isGranted) {
-                  await showNotification('titulo', 'descripcion');
-                }
-              },
-            ),
-          ],
+                      controller.sePuedeEnviarNofiticaciones.value =
+                          newValue != 3;
+
+                      if (newValue == 0) {
+                        controller.recordatorioHoras.value = 24;
+                      }
+
+                      if (newValue == 1) {
+                        controller.recordatorioHoras.value = 48;
+                      }
+
+                      if (newValue == 2) {
+                        controller.recordatorioHoras.value = 72;
+                      }
+
+                      if (newValue != 3) {
+                        await NotificationService()
+                            .scheduleAllTaskNotifications(
+                              controller.tareas,
+                              controller.recordatorioHoras.value,
+                            );
+                      }
+                    },
+                  ),
+                );
+              }),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

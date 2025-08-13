@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:my_homework_app/src/widgets/card_dashboard.dart';
 import 'package:my_homework_app/src/widgets/card_notificacion.dart';
 import 'package:my_homework_app/src/widgets/task.dart';

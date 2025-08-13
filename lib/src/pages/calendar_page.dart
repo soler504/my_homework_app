@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
 // import 'package:my_homework_app/src/services/storage_service.dart';
+import 'package:my_homework_app/src/pages/ver_tareas_page.dart';
 import 'package:my_homework_app/src/widgets/task.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -82,9 +83,17 @@ class CalendarPage extends StatelessWidget {
                             : Icons.cancel_outlined,
                         color: tarea.completada ? Colors.green : Colors.red,
                         id: tarea.id,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => DetalleTareaVista(tarea: tarea),
+                            ) ,
+                          );
+                        },
                       );
-                    },
-                  ),
+                    }
+              ),
           ],
         ),
       );
