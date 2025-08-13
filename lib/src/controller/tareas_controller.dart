@@ -8,14 +8,26 @@ class TareasController extends GetxController {
   RxInt tareasPendientes = 0.obs;
   RxInt tareasCompletadas = 0.obs;
   RxInt proximasTareas = 0.obs;
-  RxList tareasHoy = [].obs;
+  RxList tareasFiltradas = [].obs;
+  var selectedDate = DateTime.now().obs;
 
   @override
   void onInit() {
     super.onInit();
 
-    ever(tareas, (_) => _actualizarContadores());
-    ever(tareas, (_) => _obtenerTareasDeHoy());
+    ever(tareas, (_) {
+      _actualizarContadores();
+      obtenerTareasPorFecha(selectedDate.value);
+    });
+
+    ever(selectedDate, (_) {
+      obtenerTareasPorFecha(selectedDate.value);
+    });
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    selectedDate.value = today;
+    obtenerTareasPorFecha(today);
   }
 
   void _actualizarContadores() {
@@ -26,6 +38,7 @@ class TareasController extends GetxController {
         .where(
           (t) =>
               t.isOverdue &&
+              !t.completada &&
               t.fechaLimite.year == today.year &&
               t.fechaLimite.month == today.month,
         )
@@ -55,16 +68,13 @@ class TareasController extends GetxController {
         .length;
   }
 
-  void _obtenerTareasDeHoy() {
-    DateTime now = DateTime.now();
-    DateTime today = DateTime(now.year, now.month, now.day);
-
-    tareasHoy.value = tareas
+  void obtenerTareasPorFecha(DateTime fecha) {
+    tareasFiltradas.value = tareas
         .where(
           (x) =>
-              x.fechaLimite.year == today.year &&
-              x.fechaLimite.month == today.month &&
-              x.fechaLimite.day == today.day,
+              x.fechaLimite.year == fecha.year &&
+              x.fechaLimite.month == fecha.month &&
+              x.fechaLimite.day == fecha.day,
         )
         .toList();
   }
@@ -87,5 +97,10 @@ class TareasController extends GetxController {
       tareas[index].completada = !tareas[index].completada;
       tareas[index] = tareas[index];
     }
+  }
+
+  void setFechaSeleccionada(DateTime fecha) {
+    selectedDate.value = fecha;
+    obtenerTareasPorFecha(fecha);
   }
 }

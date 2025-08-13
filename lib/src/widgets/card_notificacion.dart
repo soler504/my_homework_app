@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:my_homework_app/src/pages/popups.dart';
 
-class CardHome extends StatelessWidget {
+class CardNotification extends StatelessWidget {
   final String texto1;
   final String texto2;
+  final bool showButton;
 
-  const CardHome({super.key, required this.texto1, required this.texto2});
+  const CardNotification({
+    super.key,
+    required this.texto1,
+    required this.texto2,
+    this.showButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +34,17 @@ class CardHome extends StatelessWidget {
                   Text(texto2, style: TextStyle(fontSize: 15)),
                 ],
               ),
-              IconButton(
-                onPressed: () {
-                  MostrarPopup.mostrar(context);
-                },
-                icon: Icon(
-                  Icons.add_task_outlined,
-                  color: Colors.green,
-                  size: 35,
+              if (showButton)
+                IconButton(
+                  onPressed: () {
+                    MostrarPopup.mostrar(context);
+                  },
+                  icon: Icon(
+                    Icons.add_task_outlined,
+                    color: Colors.green,
+                    size: 35,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

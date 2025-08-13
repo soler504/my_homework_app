@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/widgets/card_dashboard.dart';
-import 'package:my_homework_app/src/widgets/card_home.dart';
+import 'package:my_homework_app/src/widgets/card_notificacion.dart';
 import 'package:my_homework_app/src/widgets/task.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,7 +17,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final tareas = controller.tareas;
+      DateTime today = DateTime(now.year, now.month, now.day);
+      controller.obtenerTareasPorFecha(today);
 
       return SingleChildScrollView(
         child: Padding(
@@ -33,8 +34,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
 
-              tareas.isEmpty
-                  ? CardHome(
+              controller.tareas.isEmpty
+                  ? CardNotification(
                       texto1: 'No tienes tareas creadas.',
                       texto2: 'Click para crear una nueva tarea',
                     )
@@ -120,33 +121,30 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         Divider(height: 10),
-                        controller.tareasHoy.isEmpty
-                            ? CardHome(
+                        controller.tareasFiltradas.isEmpty
+                            ? CardNotification(
                                 texto1: 'No tienes tareas para el día de hoy.',
                                 texto2: 'Click para crear una nueva tarea',
                               )
                             : ListView.builder(
-                                itemCount: controller.tareasHoy.length,
+                                itemCount: controller.tareasFiltradas.length,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
+                                  final tarea =
+                                      controller.tareasFiltradas[index];
+
                                   return Task(
-                                    titulo: controller.tareasHoy[index].titulo,
-                                    asignatura: controller
-                                        .tareasHoy[index]
-                                        .asignatura
-                                        .nombre,
-                                    fecha:
-                                        controller.tareasHoy[index].fechaLimite,
-                                    iconData:
-                                        controller.tareasHoy[index].completada
+                                    titulo: tarea.titulo,
+                                    asignatura: tarea.asignatura.nombre,
+                                    fecha: tarea.fechaLimite,
+                                    iconData: tarea.completada
                                         ? Icons.check
                                         : Icons.cancel_outlined,
-                                    color:
-                                        controller.tareasHoy[index].completada
+                                    color: tarea.completada
                                         ? Colors.green
                                         : Colors.red,
-                                    id: controller.tareasHoy[index].id,
+                                    id: tarea.id,
                                   );
                                 },
                               ),
