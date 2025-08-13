@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
+import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:my_homework_app/src/pages/agg_asignatura_page.dart';
 import 'package:my_homework_app/src/pages/calendar_page.dart';
@@ -19,8 +22,11 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
+  
   @override
   Widget build(BuildContext context) {
+    Get.put(AsignaturasController());
+    Get.put(TareasController());
     final User? user = FirebaseAuth.instance.currentUser;
     print('Usuario actual: ${user?.email ?? 'No hay usuario'}');
     

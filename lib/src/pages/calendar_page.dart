@@ -1,15 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/controller/tareas_controller.dart';
+// import 'package:my_homework_app/src/services/storage_service.dart';
 import 'package:my_homework_app/src/widgets/task.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarPage extends StatelessWidget {
   CalendarPage({super.key});
-  final TareasController controller = Get.find<TareasController>();
+  final  user = FirebaseAuth.instance.currentUser;
+  // final FirestoreService _firestoreService = FirestoreService();
+  final TareasController tareasController = Get.find<TareasController>();
+  final AsignaturasController asignaturasController = Get.find<AsignaturasController>();
+  String? asignaturaSeleccionada;
 
   @override
   Widget build(BuildContext context) {
+    // final asignaturas =  asignaturasController.obtenerAsignaturas();
     return Obx(() {
       return SafeArea(
         child: Column(
@@ -20,12 +28,27 @@ class CalendarPage extends StatelessWidget {
               firstDayOfWeek: 1,
               onTap: (CalendarTapDetails details) {
                 if (details.date != null) {
-                  controller.setFechaSeleccionada(details.date!);
+                  tareasController.setFechaSeleccionada(details.date!);
                 }
               },
             ),
             SizedBox(height: 10),
-            controller.tareasFiltradas.isEmpty
+            DropdownButton<String>(
+              isExpanded: true,
+              value: asignaturaSeleccionada ,
+              hint: const Text('Selecciona una asignatura'),
+              items: asignaturasController.asignaturas.map((asignatura) {
+                return DropdownMenuItem<String>(
+                  value: asignatura.id,
+                  child: Text(asignatura.nombre),
+                );
+              }).toList(),
+              onChanged: (value) {
+                asignaturaSeleccionada = value;
+              },
+            ),
+            SizedBox(height: 10),
+            tareasController.tareasFiltradas.isEmpty
                 ? Card(
                     shadowColor: Colors.black,
                     elevation: 5,
@@ -44,11 +67,11 @@ class CalendarPage extends StatelessWidget {
                     ),
                   )
                 : ListView.builder(
-                    itemCount: controller.tareasFiltradas.length,
+                    itemCount: tareasController.tareasFiltradas.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      final tarea = controller.tareasFiltradas[index];
+                      final tarea = tareasController.tareasFiltradas[index];
 
                       return Task(
                         titulo: tarea.titulo,

@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/model/asignatura_model.dart';
 
@@ -13,8 +16,9 @@ class CrearAsignatura extends StatefulWidget {
 }
 
 class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
-  
+  final AsignaturasController asignaturasController = Get.put(AsignaturasController());
   final TextEditingController nombreController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
   String? colorSeleccionado;
 
   final Map<String, Color> colores = {
@@ -56,7 +60,7 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
       color: color,
     );
 
-    AsignaturasController.add(nuevaAsignatura);
+    asignaturasController.agregarAsignatura(user!.uid,nuevaAsignatura);
 
     Navigator.pop(context);
     

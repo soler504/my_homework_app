@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
+import 'package:my_homework_app/src/services/Tareas_provider.dart';
+
 
 class TareasController extends GetxController {
+  final _tareasProvider = TareasProvider();
+  
   var tareas = <Tarea>[].obs;
-
+  
   RxInt tareasFueraFecha = 0.obs;
   RxInt tareasPendientes = 0.obs;
   RxInt tareasCompletadas = 0.obs;
@@ -12,8 +16,9 @@ class TareasController extends GetxController {
   var selectedDate = DateTime.now().obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    tareas.value =  await _tareasProvider.cargarTareas();
 
     ever(tareas, (_) {
       _actualizarContadores();
@@ -29,6 +34,8 @@ class TareasController extends GetxController {
     selectedDate.value = today;
     obtenerTareasPorFecha(today);
   }
+
+  
 
   void _actualizarContadores() {
     DateTime now = DateTime.now();
@@ -80,6 +87,7 @@ class TareasController extends GetxController {
   }
 
   void agregarTarea(Tarea tarea) {
+    _tareasProvider.agregarTarea(tarea);
     tareas.add(tarea);
   }
 

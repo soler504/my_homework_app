@@ -3,9 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/config/router/app_router.dart';
 import 'package:my_homework_app/src/config/theme/app_theme.dart';
-import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
+// import 'package:my_homework_app/src/controller/asignaturas_controller.dart';
 import 'package:my_homework_app/src/controller/globales.dart';
-import 'package:my_homework_app/src/controller/tareas_controller.dart';
+// import 'package:my_homework_app/src/controller/tareas_controller.dart';
 import 'package:my_homework_app/src/controller/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_homework_app/src/services/notification_service.dart';
@@ -16,8 +16,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initNotification();
   Get.put(Sesion());
-  Get.put(AsignaturasController());
-  Get.put(TareasController());
+  
 
   runApp(const MainApp());
 }

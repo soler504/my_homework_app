@@ -14,6 +14,8 @@ class CrearTarea extends StatefulWidget {
 }
 
 class _CrearTareaPageState extends State<CrearTarea> {
+  final AsignaturasController asignaturasController = Get.find<AsignaturasController>();
+  
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
   final TareasController controller = Get.find<TareasController>();
@@ -72,7 +74,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
     Tarea nuevaTarea = Tarea(
       titulo: tituloController.text,
       descripcion: descripcionController.text,
-      asignatura: AsignaturasController.obtenerPorId(asignaturaSeleccionada!),
+      asignatura: asignaturasController.obtenerAsignaturasPorId(asignaturaSeleccionada!),
       fechaInicio: fechaInicio ?? DateTime.now(),
       fechaLimite: fechaFin ?? DateTime.now().add(const Duration(days: 7)),
       id: '${DateTime.now().millisecondsSinceEpoch}',
@@ -92,8 +94,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
 
   @override
   Widget build(BuildContext context) {
-    final asignaturas = AsignaturasController.obtenerAsignaturas();
-
+    // final asignaturas = asignaturasController.obtenerAsignaturas();
     return Container(
       margin: const EdgeInsets.all(2),
       child: Padding(
@@ -123,7 +124,7 @@ class _CrearTareaPageState extends State<CrearTarea> {
               isExpanded: true,
               value: asignaturaSeleccionada,
               hint: const Text('Selecciona una asignatura'),
-              items: asignaturas.map((asignatura) {
+              items: asignaturasController.asignaturas.map((asignatura) {
                 return DropdownMenuItem<String>(
                   value: asignatura.id,
                   child: Text(asignatura.nombre),
