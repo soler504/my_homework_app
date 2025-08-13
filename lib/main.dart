@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/config/router/app_router.dart';
 import 'package:my_homework_app/src/config/theme/app_theme.dart';
@@ -17,24 +18,30 @@ void main() async {
   Get.put(Sesion());
   Get.put(AsignaturasController());
   Get.put(TareasController());
-  
+
   runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    
     final ThemeController themeController = Get.put(ThemeController());
-    
+
     return Obx(() {
       return MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: appRouter,
         theme: lightTheme,
         darkTheme: darkTheme,
+        locale: const Locale('es', ''),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [const Locale('en', ''), const Locale('es', '')],
         themeMode: themeController.isDarkMode.value
             ? ThemeMode.dark
             : ThemeMode.light,
