@@ -34,6 +34,7 @@ class TareasController extends GetxController {
     tareasPendientes.value = tareas
         .where(
           (t) =>
+              !t.isOverdue &&
               !t.completada &&
               t.fechaLimite.year == today.year &&
               t.fechaLimite.month == today.month,
@@ -80,8 +81,9 @@ class TareasController extends GetxController {
     tareas[index] = tarea;
   }
 
-  void cambiarEstadoTarea(int index) {
-    if (index >= 0 && index < tareas.length) {
+  void cambiarEstadoTarea(String id) {
+    final index = tareas.indexWhere((t) => t.id == id);
+    if (index != -1) {
       tareas[index].completada = !tareas[index].completada;
       tareas[index] = tareas[index];
     }

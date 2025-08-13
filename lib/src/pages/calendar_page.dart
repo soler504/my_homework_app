@@ -38,7 +38,7 @@ class _CalendarPageState extends State<CalendarPage> {
             fecha: DateTime.now(),
             iconData: Icons.check,
             color: Colors.green,
-            index: 0,
+            id: '',
           ),
           Task(
             titulo: 'Titulo',
@@ -46,7 +46,7 @@ class _CalendarPageState extends State<CalendarPage> {
             fecha: DateTime.now(),
             iconData: Icons.cancel_outlined,
             color: Colors.red,
-            index: 0,
+            id: '',
           ),
         ],
       ),

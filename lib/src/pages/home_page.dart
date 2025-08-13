@@ -136,7 +136,8 @@ class HomePage extends StatelessWidget {
                                         .tareasHoy[index]
                                         .asignatura
                                         .nombre,
-                                    fecha: DateTime.now(),
+                                    fecha:
+                                        controller.tareasHoy[index].fechaLimite,
                                     iconData:
                                         controller.tareasHoy[index].completada
                                         ? Icons.check
@@ -145,7 +146,7 @@ class HomePage extends StatelessWidget {
                                         controller.tareasHoy[index].completada
                                         ? Colors.green
                                         : Colors.red,
-                                    index: index,
+                                    id: controller.tareasHoy[index].id,
                                   );
                                 },
                               ),

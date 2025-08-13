@@ -1,7 +1,6 @@
 import 'package:my_homework_app/src/model/asignatura_model.dart';
 
-class Tarea{
-
+class Tarea {
   String id;
   String titulo;
   String descripcion;
@@ -9,7 +8,11 @@ class Tarea{
   DateTime? fechaInicio;
   Asignatura asignatura;
   bool completada;
-  bool get isOverdue => fechaLimite.isBefore(DateTime.now());
+  bool get isOverdue {
+    DateTime now = DateTime.now();
+    DateTime hoy = DateTime(now.year, now.month, now.day);
+    return fechaLimite.isBefore(hoy);
+  }
 
   Tarea({
     required this.id,
@@ -27,7 +30,9 @@ class Tarea{
       titulo: map['titulo'] ?? '',
       descripcion: map['descripcion'] ?? '',
       fechaLimite: DateTime.parse(map['fechaLimite']),
-      fechaInicio: map['fechaInicio'] != null ? DateTime.parse(map['fechaInicio']) : null,
+      fechaInicio: map['fechaInicio'] != null
+          ? DateTime.parse(map['fechaInicio'])
+          : null,
       asignatura: Asignatura.fromMap(map['asignatura']),
       completada: map['completada'] == 1, // Convertir int a bool
     );
@@ -46,8 +51,7 @@ class Tarea{
 
   bool isSameDay(DateTime other) {
     return fechaLimite.year == other.year &&
-           fechaLimite.month == other.month &&
-           fechaLimite.day == other.day;
+        fechaLimite.month == other.month &&
+        fechaLimite.day == other.day;
   }
-
 }

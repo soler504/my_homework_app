@@ -9,7 +9,7 @@ class Task extends StatelessWidget {
   final DateTime fecha;
   final IconData iconData;
   final Color color;
-  final int index;
+  final String id;
 
   Task({
     super.key,
@@ -18,7 +18,7 @@ class Task extends StatelessWidget {
     required this.fecha,
     required this.iconData,
     required this.color,
-    required this.index,
+    required this.id,
   });
 
   @override
@@ -72,7 +72,7 @@ class Task extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  controller.cambiarEstadoTarea(index);
+                                  controller.cambiarEstadoTarea(id);
                                   Navigator.pop(context);
                                 },
                                 child: Text('Si'),
