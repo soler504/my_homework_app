@@ -24,6 +24,9 @@ class _CrearAsignaturaPopupState extends State<CrearAsignatura> {
     'Morado': Colors.purple,
     'Amarillo': Colors.yellow,
     'Negro': Colors.black,
+    'Cafe': Color.fromARGB(233, 124, 54, 30),
+    'Gris': Color.fromARGB(255, 112, 111, 110),
+
   };
 
   void crearAsignatura() {

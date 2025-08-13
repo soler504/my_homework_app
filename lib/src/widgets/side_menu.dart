@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_homework_app/src/controller/globales.dart';
+//import 'package:my_homework_app/src/controller/globales.dart';
 import 'package:my_homework_app/src/controller/theme_controller.dart';
 
 class SideMenu extends StatelessWidget {
@@ -10,7 +10,7 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Get.find<Sesion>().usuarioActual;
+  //final user = Get.find<Sesion>().usuarioActual;
     return Drawer(
       child: ListView(
         children: [
