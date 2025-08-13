@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:my_homework_app/src/model/tarea_model.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -8,6 +12,11 @@ class NotificationService {
 
   //INITIALZE
   Future<void> initNotification() async {
+    //init timezone handling
+    tz.initializeTimeZones();
+    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+
     //android settings
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@drawable/icon_notification');
@@ -82,5 +91,36 @@ class NotificationService {
         );
       },
     );
+  }
+
+  Future<void> scheduleAllTaskNotifications(
+    List<Tarea> tasks,
+    int reminderHours,
+  ) async {
+    if (tasks.isEmpty) {
+      return;
+    }
+
+    for (var task in tasks) {
+      final scheduledTime = task.fechaLimite.subtract(
+        Duration(hours: reminderHours),
+      );
+
+      DateTime now = DateTime.now();
+      DateTime hoy = DateTime(now.year, now.month, now.day);
+      bool sePuedeEnviar =
+          scheduledTime.isAtSameMomentAs(hoy) || scheduledTime.isAfter(hoy);
+
+      if (sePuedeEnviar) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          task.id.hashCode,
+          'Recordatorio',
+          'Tu tarea "${task.titulo}" está a punto de vencer!',
+          tz.TZDateTime.from(scheduledTime, tz.local),
+          notificationDetails(),
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        );
+      }
+    }
   }
 }

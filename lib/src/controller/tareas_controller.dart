@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:my_homework_app/src/model/tarea_model.dart';
+import 'package:my_homework_app/src/services/notification_service.dart';
 
 class TareasController extends GetxController {
   var tareas = <Tarea>[].obs;
@@ -10,6 +11,9 @@ class TareasController extends GetxController {
   RxInt proximasTareas = 0.obs;
   RxList tareasFiltradas = [].obs;
   var selectedDate = DateTime.now().obs;
+  RxInt recordatorioHoras = 24.obs;
+  RxBool sePuedeEnviarNofiticaciones = false.obs;
+  RxInt selectedIndex = 3.obs;
 
   @override
   void onInit() {
@@ -79,8 +83,15 @@ class TareasController extends GetxController {
         .toList();
   }
 
-  void agregarTarea(Tarea tarea) {
+  Future<void> agregarTarea(Tarea tarea) async {
     tareas.add(tarea);
+
+    if (sePuedeEnviarNofiticaciones.value) {
+      await NotificationService().scheduleAllTaskNotifications(
+        tareas,
+        recordatorioHoras.value,
+      );
+    }
   }
 
   void eliminarTarea(int index) {
